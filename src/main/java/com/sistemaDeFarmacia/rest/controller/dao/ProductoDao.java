@@ -35,8 +35,14 @@ public class ProductoDao extends AdapterDao<Producto> {
 
     public Boolean save() throws Exception {
         Integer id = getListAll().getSize()+1;
-        producto.setId(id);
+        producto.setIdProducto(id);
         this.persist(this.producto);
+        return true;
+    }
+
+    public boolean update() throws Exception{
+        this.merge(getProducto(), getProducto().getIdProducto()-1);
+        this.listAll = listAll();
         return true;
     }
 
