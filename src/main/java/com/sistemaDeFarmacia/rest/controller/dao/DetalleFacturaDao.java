@@ -1,4 +1,4 @@
-package com.sistemaFarmacia.rest.controller.dao;
+package com.sistemaDeFarmacia.rest.controller.dao;
 
 import com.example.controls.dao.implement.AdapterDao;
 import com.example.controls.tda.list.LinkedList;

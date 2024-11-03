@@ -1,5 +1,5 @@
-package com.sistemaFarmacia.rest.models;
-
+package com.sistemaDeFarmacia.rest.models;
+import java.util.Date;
 public class Factura {
     private String id_factura;
     private Date fechaEmision;

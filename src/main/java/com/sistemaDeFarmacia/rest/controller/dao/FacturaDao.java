@@ -1,9 +1,9 @@
-package com.example.controls.dao;
+package com.sistemaDeFarmacia.controls.dao;
 
-import com.example.controls.dao.implement.AdapterDao;
-import com.example.controls.tda.list.LinkedList;
-import com.example.models.Factura;
-import com.example.models.enumerador.TipoIdentificacion;
+import com.sistemaDeFarmacia.controls.dao.implement.AdapterDao;
+import com.sistemaDeFarmacia.controls.tda.list.LinkedList;
+import com.sistemaDeFarmacia.models.Factura;
+
 
 public class FacturaDao extends AdapterDao<Factura> {
     private Factura factura;

@@ -1,4 +1,4 @@
-package com.sistemaFarmacia.rest.models;
+package com.sistemaDeFarmacia.rest.models;
 
 public class DetalleFactura {
     private String id_detalleVenta;
