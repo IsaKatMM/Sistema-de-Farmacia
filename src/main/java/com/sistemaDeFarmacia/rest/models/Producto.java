@@ -1,4 +1,4 @@
-package com.sistemaFarmacia.rest.models;
+package com.sistemaDeFarmacia.rest.models;
 
 public class Producto {
     private int idProducto; 
