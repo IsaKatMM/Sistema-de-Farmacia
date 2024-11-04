@@ -1,4 +1,4 @@
-package com.sistemaFarmacia.rest;
+package com.sistemaDeFarmacia.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
