@@ -1,4 +1,4 @@
-package com.sistemaFarmacia.rest.models;
+package com.sistemaDeFarmacia.rest.models.enumerador;
 
 public enum TipoProducto {
     MEDICAMENTO,
