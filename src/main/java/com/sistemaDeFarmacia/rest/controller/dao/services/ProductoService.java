@@ -27,7 +27,7 @@ public class ProductoService {
         return obj.getListAll();
     }
 
-    public Producto geProducto(){
+    public Producto getProducto(){
         return obj.getProducto();
     }
 

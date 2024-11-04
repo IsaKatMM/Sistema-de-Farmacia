@@ -26,7 +26,8 @@ public class ProductoApi {
         HashMap map = new HashMap<>();
         ProductoService ps = new ProductoService();
         map.put("msg", "Ok");
-        map.put("data", ps.listAll().toArray);
+        map.put("data", ps.listAll().toArray());
+        //map.put("data", ps.listAll().toArray);
         if (ps.listAll().isEmpty()) {
             map.put("data", new Object[]{});
         }
@@ -59,7 +60,7 @@ public class ProductoApi {
         }
         map.put("msg", "Ok");
         map.put("data", ps.getProducto());
-        if (ps.geProducto().getIdProducto() == null) {
+        if (ps.getProducto().getIdProducto() == null) {
             map.put("data", "No existe un producto con este identificador");
             return Response.status(Status.BAD_REQUEST).entity(map).build();
         }
