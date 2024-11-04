@@ -6,7 +6,7 @@ import com.sistemaDeFarmacia.models.Factura;
 
 
 public class FacturaDao extends AdapterDao<Factura> {
-    private Factura factura;
+    private com.sistemaDeFarmacia.rest.models.Factura factura;
     private LinkedList listAll;
 
     public FacturaDao() {
@@ -33,14 +33,14 @@ public class FacturaDao extends AdapterDao<Factura> {
 
     public Boolean save() throws Exception {
         Integer id = getListAll().getSize() + 1;
-        factura.setId(id);
+        factura.setId_factura(id);
         this.persist(this.factura);
         this.listAll = listAll();
         return true;
     }
 
     public Boolean update() throws Exception {
-        this.merge(getFactura(), getFactura().getId() - 1);
+        this.merge(getFactura(), getFactura().getId_factura() - 1);
         this.listAll = listAll();
         return true;
     }

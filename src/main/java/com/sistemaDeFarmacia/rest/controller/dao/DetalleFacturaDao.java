@@ -5,7 +5,7 @@ import com.example.controls.tda.list.LinkedList;
 import com.example.models.DetalleFactura;
 
 public class DetalleFacturaDao extends AdapterDao<DetalleFactura> {
-    private DetalleFactura detalleFactura;
+    private com.sistemaDeFarmacia.rest.models.DetalleFactura detalleFactura;
     private LinkedList listAll;
 
     public DetalleFacturaDao() {
@@ -32,14 +32,14 @@ public class DetalleFacturaDao extends AdapterDao<DetalleFactura> {
 
     public Boolean save() throws Exception {
         Integer id = getListAll().getSize() + 1;
-        detalleFactura.setId(id);
+        detalleFactura.setId_detalleVenta(id);
         this.persist(this.detalleFactura);
         this.listAll = listAll();
         return true;
     }
 
     public Boolean update() throws Exception {
-        this.merge(getDetalleFactura(), getDetalleFactura().getId() - 1);
+        this.merge(getDetalleFactura(), getDetalleFactura().getId_detalleVenta() - 1);
         this.listAll = listAll();
         return true;
     }
