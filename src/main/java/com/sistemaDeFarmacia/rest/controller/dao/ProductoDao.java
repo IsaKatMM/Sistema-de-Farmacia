@@ -6,6 +6,7 @@ import java.rmi.server.ExportException;
 import com.google.gson.JsonSyntaxException;
 import com.sistemaDeFarmacia.rest.controller.dao.implement.AdapterDao;
 import com.sistemaDeFarmacia.rest.models.Producto;
+import com.sistemaDeFarmacia.rest.models.enumerador.TipoProducto;
 import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
 
 public class ProductoDao extends AdapterDao<Producto> {
@@ -44,6 +45,14 @@ public class ProductoDao extends AdapterDao<Producto> {
         this.merge(getProducto(), getProducto().getIdProducto()-1);
         this.listAll = listAll();
         return true;
+    }
+
+    public TipoProducto getTipoProducto(String tipo){
+        return TipoProducto.valueOf(tipo);
+    }
+
+    public TipoProducto[] getTipos(){
+        return TipoProducto.values();
     }
 
 /// METODOS PARA PRODUCTO SOLO SE LOS PONE AQUI**********************
