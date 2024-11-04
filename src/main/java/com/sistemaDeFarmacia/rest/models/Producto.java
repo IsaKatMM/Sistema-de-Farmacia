@@ -1,7 +1,7 @@
 package com.sistemaDeFarmacia.rest.models;
 
 public class Producto {
-    private int idProducto; 
+    private Integer idProducto; 
     private String nombreProducto;
     private String laboratio;
     private boolean requiereReceta;
@@ -19,10 +19,10 @@ public class Producto {
 //getters and setters
 
 
-    public int getIdProducto() {
+    public Integer getIdProducto() {
         return this.idProducto;
     }
-    public void setIdProducto(int idProducto) {
+    public void setIdProducto(Integer idProducto) {
         this.idProducto = idProducto;
     }
 

@@ -1,18 +1,13 @@
 package com.sistemaDeFarmacia.rest.models.enumerador;
 
 public enum TipoProducto {
-    MEDICAMENTO("MEDICAMENTO"), 
-    SUPLEMENTO("SUPLEMENTO"), 
-    HIGIENE("HIGIENE"), 
-    COSMETICO("COSMETICO");
+    MEDICAMENTO, 
+    SUPLEMENTO, 
+    HIGIENE, 
+    COSMETICO;
 
-    private String name; // Cambiado a "private"
-
-    private TipoProducto(String name) {
-        this.name = name;
-    }
-
+    // Este método devuelve el nombre de la constante
     public String getName() {
-        return name;
+        return this.name();
     }
 }

@@ -43,4 +43,8 @@ public class ProductoService {
         return obj.getTipos();
     }
 
+    public Producto get(Integer idProducto) throws Exception{
+        return obj.get(idProducto);
+    }
+
 }

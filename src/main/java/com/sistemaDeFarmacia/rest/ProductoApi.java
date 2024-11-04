@@ -27,7 +27,6 @@ public class ProductoApi {
         ProductoService ps = new ProductoService();
         map.put("msg", "Ok");
         map.put("data", ps.listAll().toArray());
-        //map.put("data", ps.listAll().toArray);
         if (ps.listAll().isEmpty()) {
             map.put("data", new Object[]{});
         }
@@ -80,12 +79,12 @@ public class ProductoApi {
             ProductoService ps = new ProductoService();
             ps.getProducto().setNombreProducto(map.get(("NombreProducto")).toString());
             ps.getProducto().setLaboratio(map.get(("Laboratorio")).toString());
-            ps.getProducto().setRequiereReceta(map.get(("RequiereReceta")).toString());
+            ps.getProducto().setRequiereReceta(Boolean.parseBoolean(map.get("RequiereReceta").toString()));
             ps.getProducto().setCategoria(map.get(("Categoria")).toString());
-            ps.getProducto().setPeso(map.get(("Peso")).toString());
+            ps.getProducto().setPeso(Integer.parseInt(map.get("Peso").toString()));
             ps.getProducto().setMarca(map.get(("Marca")).toString());
-            ps.getProducto().setStuck(map.get(("Stuck")).toString());
-            ps.getProducto().setStuckMinimo(map.get(("StuckMinimo")).toString());
+            ps.getProducto().setStuck(Integer.parseInt(map.get(("Stuck")).toString()));
+            ps.getProducto().setStuckMinimo(Integer.parseInt(map.get(("StuckMinimo")).toString()));
 
             ps.save();
             res.put("msf", "Ok");
@@ -105,16 +104,18 @@ public class ProductoApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response update(HashMap map){
         HashMap res = new HashMap<>();
+        ProductoService ps = new ProductoService();
         try {
-            ps.setProducto().ps.get(Integer.parseInt(map.get("IdProducto").toString()));
+            ps.setProducto(ps.get(Integer.parseInt(map.get("IdProducto").toString())));
+
             ps.getProducto().setNombreProducto(map.get(("NombreProducto")).toString());
             ps.getProducto().setLaboratio(map.get(("Laboratorio")).toString());
-            ps.getProducto().setRequiereReceta(map.get(("RequiereReceta")).toString());
+            ps.getProducto().setRequiereReceta(Boolean.parseBoolean(map.get("RequiereReceta").toString()));
             ps.getProducto().setCategoria(map.get(("Categoria")).toString());
-            ps.getProducto().setPeso(map.get(("Peso")).toString());
+            ps.getProducto().setPeso(Integer.parseInt(map.get("Peso").toString()));
             ps.getProducto().setMarca(map.get(("Marca")).toString());
-            ps.getProducto().setStuck(map.get(("Stuck")).toString());
-            ps.getProducto().setStuckMinimo(map.get(("StuckMinimo")).toString());
+            ps.getProducto().setStuck(Integer.parseInt(map.get(("Stuck")).toString()));
+            ps.getProducto().setStuckMinimo(Integer.parseInt(map.get(("StuckMinimo")).toString()));
 
             ps.update();
             res.put("msf", "Ok");
