@@ -1,9 +1,13 @@
+<<<<<<< HEAD
      */
 <<<<<<< HEAD
 package com.sistemaDeFarmacia.rest;
 =======
 package com.example.rest;
 >>>>>>> rama-Chingo
+=======
+package com.example.rest;
+>>>>>>> origin/rama-Tapia
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
