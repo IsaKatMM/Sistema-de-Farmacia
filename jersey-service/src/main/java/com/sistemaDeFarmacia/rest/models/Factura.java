@@ -1,6 +1,6 @@
 package com.sistemaDeFarmacia.rest.models;
 import java.util.Date;
-import com.sistemaDeFarmacia.models.enumerador.MetodoPago;
+import com.sistemaDeFarmacia.rest.models.enumerador.MetodoPago;
 
 public class Factura {
     private Integer id_factura;
@@ -11,6 +11,9 @@ public class Factura {
     private float IVA;
     private float total_USD;
 
+
+    public Factura() {
+    }
     public Factura(Integer id_factura, Date fechaEmision, MetodoPago metodoPago, String observaciones, float subTotal, float IVA, float total_USD) {
         this.id_factura = id_factura;
         this.fechaEmision = fechaEmision;

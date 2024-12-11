@@ -1,0 +1,24 @@
+# Ignorar archivos de compilación
+**/*.class
+
+# Ignorar directorios de compilación Maven
+/target/
+
+# Ignorar configuraciones de IDE comunes
+/.idea/
+/*.iml
+/.classpath
+/.project
+/.settings/
+
+# Ignorar logs
+*.log
+
+# Ignorar datos temporales
+*.tmp
+*.bak
+*.swp
+
+# Ignorar otras configuraciones de usuario
+*.DS_Store
+
