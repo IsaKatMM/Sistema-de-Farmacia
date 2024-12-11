@@ -15,6 +15,10 @@ public class DetalleFactura {
         this.totalVenta = totalVenta;
     }
 
+    public DetalleFactura() {
+        //TODO Auto-generated constructor stub
+    }
+
     public Integer getId_detalleVenta() {
         return this.id_detalleVenta;
     }

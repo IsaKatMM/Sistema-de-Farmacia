@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response.Status;
 
 import java.util.HashMap;
 
-import com.sistemaDeFarmacia.controls.dao.services.DetalleFacturaServices;
+import com.sistemaDeFarmacia.rest.controller.dao.services.DetalleFacturaServices;
 import com.google.gson.Gson;
 
 @Path("detalleFactura")

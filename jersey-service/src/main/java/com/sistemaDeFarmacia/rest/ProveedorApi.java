@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.sistemaDeFarmacia.rest.controller.dao.services.ProveedorServices;
+import com.sistemaDeFarmacia.rest.models.enumerador.TipoProducto;
 
 @Path("provetor")
 public class ProveedorApi {
@@ -85,7 +86,7 @@ public class ProveedorApi {
         ProveedorServices ps= new ProveedorServices();
         //ps.getPersona().setNombre(map.get("nombres").toString());
         ps.getProveedor().setNombreEmpresa(map.get("nombreEmpresa").toString());
-        ps.getProveedor().setTipoProductos(ps.getTipoProductos(map.get("tipo").toString()));
+        ps.getProveedor().setTipoProductos(TipoProducto.valueOf(map.get("tipoProductos").toString()));
         ps.getProveedor().setPedidos(map.get("pedidos").toString());
         ps.getProveedor().setProductosDisponibles(Boolean.parseBoolean(map.get("productosDisponibles").toString()));
        

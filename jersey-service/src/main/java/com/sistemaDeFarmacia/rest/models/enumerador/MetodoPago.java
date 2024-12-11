@@ -1,4 +1,4 @@
-package com.sistemaDeFarmacia.models.enumerador;
+package com.sistemaDeFarmacia.rest.models.enumerador;
 
 public enum MetodoPago {
     EFECTIVO,

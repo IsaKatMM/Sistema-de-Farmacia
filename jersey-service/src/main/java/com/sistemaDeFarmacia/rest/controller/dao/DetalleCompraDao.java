@@ -1,4 +1,4 @@
-package com.sistemaDeFarmacia.rest.controller.dao.implement;
+package com.sistemaDeFarmacia.rest.controller.dao;
 import com.sistemaDeFarmacia.rest.models.DetalleCompra;
 
 public class DetalleCompraDao extends com.sistemaDeFarmacia.rest.controller.dao.implement.AdapterDao<DetalleCompra> {

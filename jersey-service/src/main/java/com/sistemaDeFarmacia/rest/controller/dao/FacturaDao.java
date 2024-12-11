@@ -1,8 +1,8 @@
-package com.sistemaDeFarmacia.controls.dao;
+package com.sistemaDeFarmacia.rest.controller.dao;
 
-import com.sistemaDeFarmacia.controls.dao.implement.AdapterDao;
-import com.sistemaDeFarmacia.controls.tda.list.LinkedList;
-import com.sistemaDeFarmacia.models.Factura;
+import com.sistemaDeFarmacia.rest.controller.dao.implement.AdapterDao;
+import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
+import com.sistemaDeFarmacia.rest.models.Factura;
 
 
 public class FacturaDao extends AdapterDao<Factura> {

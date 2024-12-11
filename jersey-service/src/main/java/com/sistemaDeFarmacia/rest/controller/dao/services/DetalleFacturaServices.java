@@ -1,7 +1,7 @@
-package com.sistemaDeFarmacia.controls.dao.services;
+package com.sistemaDeFarmacia.rest.controller.dao.services;
 
-import com.sistemaDeFarmacia.controls.dao.DetalleFacturaDao;
-import com.sistemaDeFarmacia.controls.tda.list.LinkedList;
+import com.sistemaDeFarmacia.rest.controller.dao.DetalleFacturaDao;
+import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
 import com.sistemaDeFarmacia.rest.models.DetalleFactura;
 
 public class DetalleFacturaServices {

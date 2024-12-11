@@ -10,9 +10,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
-import com.sistemaDeFarmacia.controls.dao.services.FacturaServices;
+import com.sistemaDeFarmacia.rest.controller.dao.services.FacturaServices;
+import com.sistemaDeFarmacia.rest.models.enumerador.MetodoPago;
 import com.google.gson.Gson;
 
 @Path("factura")
@@ -63,7 +66,10 @@ public class FacturaApi {
         System.out.println("**********" + a);
         try {
             FacturaServices fs = new FacturaServices();
-            fs.getFactura().setFechaEmision(new Date(map.get("fechaEmision").toString()));
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaEmision = sdf.parse(map.get("fechaEmision").toString());
+            fs.getFactura().setFechaEmision(fechaEmision);
             fs.getFactura().setMetodoPago(MetodoPago.valueOf(map.get("metodoPago").toString()));
             fs.getFactura().setObservaciones(map.get("observaciones").toString());
             fs.getFactura().setSubTotal(Float.parseFloat(map.get("subTotal").toString()));
@@ -89,10 +95,15 @@ public class FacturaApi {
     @Produces(MediaType.APPLICATION_JSON)
     public Response update(HashMap<String, Object> map){
         HashMap<String, Object> res = new HashMap<>();
+        
         try {
             FacturaServices fs = new FacturaServices();
             fs.setFactura(fs.get(Integer.parseInt(map.get("id_factura").toString())));
-            fs.getFactura().setFechaEmision(new Date(map.get("fechaEmision").toString()));
+
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaEmision = sdf.parse(map.get("fechaEmision").toString());
+            fs.getFactura().setFechaEmision(fechaEmision);
+            
             fs.getFactura().setMetodoPago(MetodoPago.valueOf(map.get("metodoPago").toString()));
             fs.getFactura().setObservaciones(map.get("observaciones").toString());
             fs.getFactura().setSubTotal(Float.parseFloat(map.get("subTotal").toString()));
