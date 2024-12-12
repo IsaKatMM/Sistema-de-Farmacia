@@ -1,8 +1,8 @@
 package com.sistemaDeFarmacia.rest.controller.dao;
 
-import com.example.controls.dao.implement.AdapterDao;
-import com.example.controls.tda.list.LinkedList;
-import com.example.models.DetalleFactura;
+import com.sistemaDeFarmacia.rest.controller.dao.implement.AdapterDao;
+import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
+import com.sistemaDeFarmacia.rest.models.DetalleFactura;
 
 public class DetalleFacturaDao extends AdapterDao<DetalleFactura> {
     private com.sistemaDeFarmacia.rest.models.DetalleFactura detalleFactura;

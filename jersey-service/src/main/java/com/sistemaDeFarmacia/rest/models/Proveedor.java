@@ -1,5 +1,5 @@
 package com.sistemaDeFarmacia.rest.models;
-//import com.sistemaDeFarmacia.rest.models.enumerator.TipoProductos;
+import com.sistemaDeFarmacia.rest.models.enumerador.TipoProducto;
 public class Proveedor extends Persona {
     private Integer id;
     private String nombreEmpresa;
@@ -62,10 +62,10 @@ public class Proveedor extends Persona {
         this.productosDisponibles = productosDisponibles;
     }
     public TipoProducto getTipoProducto() {
-        return tipoProducto;
+        return getTipoProducto();
     }
     public void setTipoProducto(TipoProducto tipoProducto) {
-        this.tipoProducto = tipoProducto;
+        this.tipoProductos = tipoProducto;
     }
     
     
