@@ -8,42 +8,40 @@ import java.util.Scanner;
 import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
 import com.google.gson.Gson;
 
-public class AdapterDao <T> implements InterfazDao<T> {
+public class AdapterDao<T> implements InterfazDao<T> {
     private Class clazz;
     private Gson g;
     public static String URL = "media/";
 
-    public AdapterDao(Class clazz){
+    public AdapterDao(Class clazz) {
         this.clazz = clazz;
         g = new Gson();
     }
 
-    
-    @Override
-    public LinkedList listAll() {
-        LinkedList<T> list = new LinkedList<>();
-        try {
-            String data = readFile();
-            T[] matrix = (T[]) g.fromJson(data, java.lang.reflect.Array.newInstance(clazz,0).getClass());
-            list.toList(matrix);
-
-
-        } catch (Exception e) {
-        
-        
-        }
-        return list;
-    }
-    
-
     public T get(Integer id) throws Exception {
+        LinkedList<T> list = listAll();
+        if (!list.isEmpty()) {
+            T [] matriz = list.toArray();
+            return matriz[id - 1];
+            
+        }
         return null;
     }
     
-    public AdapterDao(InterfazDao<T> dao) {
+
+    public LinkedList listAll() {
+        LinkedList list = new LinkedList<>();
+
+        try {
+           String data = readFile();
+           T[] matrix = (T[]) g.fromJson(data, java.lang.reflect.Array.newInstance(clazz, 0).getClass());
+           list.toList(matrix);
+        } catch (Exception e) {
+            
+
+        }
+        return list;
     }
-    
-  
 
     public void merge(T object, Integer index) throws Exception {
         LinkedList<T> list = listAll();
@@ -51,15 +49,14 @@ public class AdapterDao <T> implements InterfazDao<T> {
         String info = g.toJson(list.toArray());
         saveFile(info);
     }
-     public void persist(T object) throws Exception {
-        LinkedList<T> list = listAll();
+    
+    public void persist(T object) throws Exception {
+        LinkedList list = listAll();
         list.add(object);
         String info = g.toJson(list.toArray());
         saveFile(info);
     }
 
-   
-        //lee archivo
     private String readFile() throws Exception {
         File file = new File(URL + clazz.getSimpleName() + ".json");
 
@@ -76,6 +73,7 @@ public class AdapterDao <T> implements InterfazDao<T> {
         }
         return sb.toString().trim();
     }
+
 
     private void saveFile(String data) throws Exception {
         File file = new File(URL + clazz.getSimpleName() + ".json");
