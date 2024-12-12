@@ -3,8 +3,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.sistemaFarmacia.rest</groupId>
-    <artifactId>sistemaFarmacia</artifactId>
+    <groupId>com.sistemaDeFarmacia.rest</groupId>
+    <artifactId>sistemaDeFarmacia</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>sistemaFarmacia</name>
