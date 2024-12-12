@@ -22,3 +22,28 @@
 # Ignorar otras configuraciones de usuario
 *.DS_Store
 
+# Ignorar el entorno virtual
+venv/
+virtual/
+
+# Archivos de Python compilados
+*.pyc
+*.pyo
+__pycache__/
+
+# Archivos de configuración de IDE
+.vscode/
+.idea/
+
+# Archivos de distribución de Python
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Archivos de pruebas
+*.coverage
+*.tox
+*.nox
+*.hypothesis/
+
