@@ -1,7 +1,4 @@
 package com.sistemaDeFarmacia.rest.controller.dao.services;
-
-import org.apache.commons.math3.stat.descriptive.summary.Product;
-
 import com.sistemaDeFarmacia.rest.controller.dao.ProductoDao;
 import com.sistemaDeFarmacia.rest.controller.dao.implement.AdapterDao;
 import com.sistemaDeFarmacia.rest.models.Producto;
