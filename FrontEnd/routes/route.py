@@ -6,3 +6,9 @@ router = Blueprint('router', __name__)
 def index():
     return render_template('home.html')
 
+
+@router.route('/person/list')
+def list_person():
+    #r= requests.get("http://localhost:8099/myapp/person/list")
+    #data= r.json()
+    return render_template ('Persona/lista.html')
