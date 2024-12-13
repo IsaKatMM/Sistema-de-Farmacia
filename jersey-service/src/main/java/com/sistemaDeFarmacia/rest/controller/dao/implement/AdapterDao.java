@@ -4,46 +4,75 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Scanner;
+import java.lang.reflect.Method;
 
 import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-public class AdapterDao <T> implements InterfazDao<T> {
+public class AdapterDao<T> implements InterfazDao<T> {
     private Class clazz;
     private Gson g;
     public static String URL = "media/";
 
     public AdapterDao(Class clazz){
         this.clazz = clazz;
-        g = new Gson();
+        this.g = new Gson();
     }
-
-    
-    @Override
-    public LinkedList listAll() {
-        LinkedList<T> list = new LinkedList<>();
-        try {
-            String data = readFile();
-            T[] matrix = (T[]) g.fromJson(data, java.lang.reflect.Array.newInstance(clazz,0).getClass());
-            list.toList(matrix);
-
-
-        } catch (Exception e) {
-        
-        
-        }
-        return list;
-    }
-    
 
     public T get(Integer id) throws Exception {
+        LinkedList<T> list = listAll();
+        if (!list.isEmpty()) {
+            T[] matriz = list.toArray();
+            for (int i = 0; i < matriz.length; i++) {
+                if (getIdent(matriz[i]).intValue() == id.intValue()) {
+                    return matriz[i];
+                }
+            }
+        }
         return null;
+    }
+
+    private Integer getIdent(T obj) {
+        try {
+            Method method = null;
+            for (Method m : clazz.getMethods()) {
+                if (m.getName().equalsIgnoreCase("getId")) {
+                    method = m;
+                    break;
+                }
+            }
+            if (method == null) {
+                for (Method m : clazz.getSuperclass().getMethods()) {
+                    if (m.getName().equalsIgnoreCase("getId")) {
+                        method = m;
+                        break;
+                    }
+                }
+            }
+            if (method != null)
+                return (Integer) method.invoke(obj);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return -1;
+        }
+        return -1;
     }
     
     public AdapterDao(InterfazDao<T> dao) {
     }
-    
-  
+
+    public LinkedList<T> listAll() {
+        LinkedList<T> list = new LinkedList<>();
+        try {
+            String data = readFile();
+            T[] matrix = (T[]) g.fromJson(data, java.lang.reflect.Array.newInstance(clazz, 0).getClass());
+            list.toList(matrix);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return list;
+    }
 
     public void merge(T object, Integer index) throws Exception {
         LinkedList<T> list = listAll();

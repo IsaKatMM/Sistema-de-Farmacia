@@ -1,30 +1,19 @@
 package com.sistemaDeFarmacia.rest.models;
 
 public class DetalleFactura {
-    private Integer id_detalleVenta;
+    private Integer id;
     private int cantidad;
     private float precioVenta;
     private float tarifa_IVA;
     private float totalVenta;
+    private Integer id_factura;
 
-    public DetalleFactura(Integer id_detalleVenta, int cantidad, float precioVenta, float tarifa_IVA, float totalVenta) {
-        this.id_detalleVenta = id_detalleVenta;
-        this.cantidad = cantidad;
-        this.precioVenta = precioVenta;
-        this.tarifa_IVA = tarifa_IVA;
-        this.totalVenta = totalVenta;
+    public Integer getId() {
+        return this.id;
     }
 
-    public DetalleFactura() {
-        //TODO Auto-generated constructor stub
-    }
-
-    public Integer getId_detalleVenta() {
-        return this.id_detalleVenta;
-    }
-
-    public void setId_detalleVenta(Integer id_detalleVenta) {
-        this.id_detalleVenta = id_detalleVenta;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public int getCantidad() {
@@ -59,4 +48,11 @@ public class DetalleFactura {
         this.totalVenta = totalVenta;
     }
 
+    public Integer getId_factura() {
+        return this.id_factura;
+    }
+
+    public void setId_factura(Integer id_factura) {
+        this.id_factura = id_factura;
+    }
 }

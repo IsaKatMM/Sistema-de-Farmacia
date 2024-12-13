@@ -1,12 +1,14 @@
 package com.sistemaDeFarmacia.rest.controller.dao;
 
+import java.util.function.ToIntBiFunction;
+
 import com.sistemaDeFarmacia.rest.controller.dao.implement.AdapterDao;
 import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
 import com.sistemaDeFarmacia.rest.models.Factura;
-
+import com.sistemaDeFarmacia.rest.models.enumerador.MetodoPago;
 
 public class FacturaDao extends AdapterDao<Factura> {
-    private com.sistemaDeFarmacia.rest.models.Factura factura;
+    private Factura Factura;
     private LinkedList listAll;
 
     public FacturaDao() {
@@ -14,14 +16,14 @@ public class FacturaDao extends AdapterDao<Factura> {
     }
 
     public Factura getFactura() {
-        if (factura == null) {
-            factura = new Factura();
+        if (Factura == null) {
+            Factura = new Factura();
         }
-        return this.factura;
+        return this.Factura;
     }
 
-    public void setFactura(Factura factura) {
-        this.factura = factura;
+    public void setFactura(Factura Factura) {
+        this.Factura = Factura;
     }
     
     public LinkedList getListAll() {
@@ -33,16 +35,24 @@ public class FacturaDao extends AdapterDao<Factura> {
 
     public Boolean save() throws Exception {
         Integer id = getListAll().getSize() + 1;
-        factura.setId_factura(id);
-        this.persist(this.factura);
+        Factura.setId(id);
+        this.persist(this.Factura);
         this.listAll = listAll();
         return true;
     }
 
     public Boolean update() throws Exception {
-        this.merge(getFactura(), getFactura().getId_factura() - 1);
+        this.merge(getFactura(), getFactura().getId() - 1);
         this.listAll = listAll();
         return true;
+    }
+
+    public MetodoPago getMetodoPago(String tipo) {
+        return MetodoPago.valueOf(tipo);
+    }
+
+    public MetodoPago[] getMetodosPago() {
+        return MetodoPago.values();
     }
 
 }

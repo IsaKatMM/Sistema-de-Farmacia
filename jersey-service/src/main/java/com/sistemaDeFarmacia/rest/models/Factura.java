@@ -3,33 +3,22 @@ import java.util.Date;
 import com.sistemaDeFarmacia.rest.models.enumerador.MetodoPago;
 
 public class Factura {
-    private Integer id_factura;
+    private Integer id;
     private Date fechaEmision;
     private MetodoPago metodoPago;
     private String observaciones;
     private float subTotal;
     private float IVA;
     private float total_USD;
+    //private String nro_order;
+    private Integer id_persona;
 
-
-    public Factura() {
-    }
-    public Factura(Integer id_factura, Date fechaEmision, MetodoPago metodoPago, String observaciones, float subTotal, float IVA, float total_USD) {
-        this.id_factura = id_factura;
-        this.fechaEmision = fechaEmision;
-        this.metodoPago = metodoPago;
-        this.observaciones = observaciones;
-        this.subTotal = subTotal;
-        this.IVA = IVA;
-        this.total_USD = total_USD;
+    public Integer getId() {
+        return this.id;
     }
 
-    public Integer getId_factura() {
-        return this.id_factura;
-    }
-
-    public void setId_factura(Integer id_factura) {
-        this.id_factura = id_factura;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Date getFechaEmision() {
@@ -80,4 +69,11 @@ public class Factura {
         this.total_USD = total_USD;
     }
 
+    public Integer getId_persona() {
+        return this.id_persona;
+    }
+
+    public void setId_persona(Integer id_persona) {
+        this.id_persona = id_persona;
+    }
 }

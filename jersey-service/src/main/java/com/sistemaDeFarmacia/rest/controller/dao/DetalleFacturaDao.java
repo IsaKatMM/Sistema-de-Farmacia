@@ -3,9 +3,10 @@ package com.sistemaDeFarmacia.rest.controller.dao;
 import com.sistemaDeFarmacia.rest.controller.dao.implement.AdapterDao;
 import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
 import com.sistemaDeFarmacia.rest.models.DetalleFactura;
+import com.sistemaDeFarmacia.rest.models.Persona;
 
 public class DetalleFacturaDao extends AdapterDao<DetalleFactura> {
-    private com.sistemaDeFarmacia.rest.models.DetalleFactura detalleFactura;
+    private DetalleFactura detalleFactura;
     private LinkedList listAll;
 
     public DetalleFacturaDao() {
@@ -32,15 +33,16 @@ public class DetalleFacturaDao extends AdapterDao<DetalleFactura> {
 
     public Boolean save() throws Exception {
         Integer id = getListAll().getSize() + 1;
-        detalleFactura.setId_detalleVenta(id);
+        detalleFactura.setId(id);
         this.persist(this.detalleFactura);
         this.listAll = listAll();
         return true;
     }
 
     public Boolean update() throws Exception {
-        this.merge(getDetalleFactura(), getDetalleFactura().getId_detalleVenta() - 1);
+        this.merge(getDetalleFactura(), getDetalleFactura().getId() - 1);
         this.listAll = listAll();
         return true;
     }
+
 }

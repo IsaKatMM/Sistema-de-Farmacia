@@ -7,6 +7,10 @@ import com.sistemaDeFarmacia.rest.models.DetalleFactura;
 public class DetalleFacturaServices {
     private DetalleFacturaDao obj;
 
+    public LinkedList listAll() {
+        return obj.getListAll();
+    }
+    
     public DetalleFacturaServices() {
         obj = new DetalleFacturaDao();
     }
@@ -19,10 +23,6 @@ public class DetalleFacturaServices {
         return obj.update();
     }
 
-    public LinkedList<DetalleFactura> listAll() {
-        return obj.getListAll();
-    }
-
     public DetalleFactura getDetalleFactura() {
         return obj.getDetalleFactura();
     }
@@ -30,8 +30,12 @@ public class DetalleFacturaServices {
     public void setDetalleFactura(DetalleFactura detalleFactura) {
         obj.setDetalleFactura(detalleFactura);
     }
-    
+
     public DetalleFactura get(Integer id) throws Exception {
         return obj.get(id);
+    }
+
+    public LinkedList detalleFactura_object(Integer type, String atributo) throws Exception {
+        return obj.listAll().order(atributo, type);
     }
 }

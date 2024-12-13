@@ -1,5 +1,12 @@
 package com.sistemaDeFarmacia.rest;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.UUID;
+
+import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -10,48 +17,89 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-
-import com.sistemaDeFarmacia.rest.controller.dao.services.FacturaServices;
-import com.sistemaDeFarmacia.rest.models.enumerador.MetodoPago;
+import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
-@Path("factura")
+import java.io.FileInputStream;
+import com.sistemaDeFarmacia.rest.controller.dao.services.FacturaServices;
+import com.sistemaDeFarmacia.rest.controller.dao.services.PersonaServices;
+
+@Path("sell")
 public class FacturaApi {
     @Path("/list")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllFacturas() {
-        HashMap<String, Object> map = new HashMap<>();
-        FacturaServices fs = new FacturaServices();
-        map.put("msg", "Ok");
-        map.put("data", fs.listAll().toArray());
-        if (fs.listAll().isEmpty()) {
-            map.put("data", new Object[]{});
+    public Response getAll() {
+        HashMap map = new HashMap<>();
+        FacturaServices ps = new FacturaServices();
+        map.put("msg", "OK");
+        map.put("data", ps.listAll().toArray());
+        if (ps.listAll().isEmpty()) {
+            map.put("data", new Object[] {});
         }
+
+        return Response.ok(map).build();
+    }
+
+    /*
+     * @Path("/list/search/{texto}")
+     * 
+     * @GET
+     * 
+     * @Produces(MediaType.APPLICATION_JSON)
+     * public Response getName(@PathParam("texto") String texto) {
+     * HashMap map = new HashMap<>();
+     * FacturaServices ps = new FacturaServices();
+     * map.put("msg", "OK");
+     * LinkedList lsita = ps.buscar_apellidos(texto);
+     * map.put("data", lsita.toArray());
+     * if (lsita.isEmpty()) {
+     * map.put("data", new Object[] {});
+     * }
+     * 
+     * return Response.ok(map).build();
+     * }
+     */
+    @Path("/list/Factura/{attribute}/{type}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFactura(@PathParam("attribute") String attribute, @PathParam("type") Integer type) {
+        HashMap map = new HashMap<>();
+        FacturaServices ps = new FacturaServices();
+        map.put("msg", "OK");
+        // pd.Factura_object(LinkedList.ASC, "apellidos")
+        try {
+            LinkedList lsita = ps.factura_object(type, attribute);
+            map.put("data", lsita.toArray());
+            if (lsita.isEmpty()) {
+                map.put("data", new Object[] {});
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
         return Response.ok(map).build();
     }
 
     @Path("/get/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFactura(@PathParam("id") Integer id) {
-        HashMap<String, Object> map = new HashMap<>();
-        FacturaServices fs = new FacturaServices();
+    public Response getPerson(@PathParam("id") Integer id) {
+        HashMap map = new HashMap<>();
+        FacturaServices ps = new FacturaServices();
         try {
-            fs.setFactura(fs.get(id));
+            ps.setFactura(ps.get(id));
         } catch (Exception e) {
             // TODO: handle exception
         }
-        map.put("msg", "Ok");
-        map.put("data", fs.getFactura());
-        if (fs.getFactura().getId_factura() == null) {
-            map.put("data", "No existe la factura con ese identificador");
+        map.put("msg", "OK");
+        map.put("data", ps.getFactura());
+        if (ps.getFactura().getId() == null) {
+            map.put("data", "No existe la Factura con ese identificador");
             return Response.status(Status.BAD_REQUEST).entity(map).build();
         }
-
         return Response.ok(map).build();
     }
 
@@ -59,67 +107,75 @@ public class FacturaApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response save(HashMap<String, Object> map){
-        HashMap<String, Object> res = new HashMap<>();
+    public Response save(HashMap map) {
+        // TODO
+        // VALIDATION ---- BAD REQUEST
+
+        HashMap res = new HashMap<>();
         Gson g = new Gson();
         String a = g.toJson(map);
-        System.out.println("**********" + a);
+        System.out.println("******* " + a);
         try {
-            FacturaServices fs = new FacturaServices();
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date fechaEmision = sdf.parse(map.get("fechaEmision").toString());
-            fs.getFactura().setFechaEmision(fechaEmision);
-            fs.getFactura().setMetodoPago(MetodoPago.valueOf(map.get("metodoPago").toString()));
-            fs.getFactura().setObservaciones(map.get("observaciones").toString());
-            fs.getFactura().setSubTotal(Float.parseFloat(map.get("subTotal").toString()));
-            fs.getFactura().setIVA(Float.parseFloat(map.get("IVA").toString()));
-            fs.getFactura().setTotal_USD(Float.parseFloat(map.get("total_USD").toString()));
+            /*
+             * ObjectMapper mapper = new ObjectMapper();
+             * JsonNode jsonNodeMap = mapper.convertValue(map, JsonNode.class);
+             * 
+             * JsonSchemaFactory factory =
+             * JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V4);
+             * JsonSchema schema = factory.getSchema(new
+             * FileInputStream("media/validation/person_v.json"));
+             * System.out.println(schema.toString());
+             * java.util.Set<ValidationMessage> errors = schema.validate(jsonNodeMap);
+             * if (errors.isEmpty()) {
+             */
+            if (map.get("person") != null && map.get("details") != null) {
+                PersonaServices personaServices = new PersonaServices();
+                personaServices.setPersona(personaServices.get(Integer.parseInt(map.get("person").toString())));
+                if (personaServices.getPersona().getId() != null) {
+                    FacturaServices ps = new FacturaServices();
+                    ps.getFactura().setFechaEmision(new Date());
+                    ps.getFactura().setId_persona(personaServices.getPersona().getId());
+                    ps.getFactura().setMetodoPago(ps.getMetodoPago(map.get("metodoPago").toString()));
+                    ps.getFactura().setObservaciones(map.get("observaciones").toString());
+                    ps.getFactura().setSubTotal(Float.parseFloat(map.get("subtotal").toString()));
+                    ps.getFactura().setIVA(Float.parseFloat(map.get("iva").toString()));
+                    ps.getFactura().setTotal_USD(Float.parseFloat(map.get("total").toString()));
+                    ps.save();
+                    
+                    res.put("msg", "OK");
+                    res.put("data", "Factura registrada correctamente");
+                    return Response.ok(res).build();
+                } else {
+                    res.put("msg", "Error");
+                    res.put("data", "La persona o la marca no existen");
+                    return Response.status(Status.BAD_REQUEST).entity(res).build();
+                }
 
-            fs.save();
-            res.put("msg", "OK");
-            res.put("msg", "Factura registrada correctamente");
-            return Response.ok(res).build();
+            } else {
+                res.put("msg", "Error");
+                res.put("data", "Faltan datos");
+                return Response.status(Status.BAD_REQUEST).entity(res).build();
+            }
+
+            /*
+             * } else {
+             * res.put("msg", "Error");
+             * // res.put("msg", "ERROR");
+             * res.put("data", errors.toArray());
+             * return Response.status(Status.BAD_REQUEST).entity(res).build();
+             * }
+             */
 
         } catch (Exception e) {
             System.out.println("Error en save data " + e.toString());
             res.put("msg", "Error");
+            // res.put("msg", "ERROR");
             res.put("data", e.toString());
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity(res).build();
+            // TODO: handle exception
         }
+
     }
 
-    @Path("/update")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response update(HashMap<String, Object> map){
-        HashMap<String, Object> res = new HashMap<>();
-        
-        try {
-            FacturaServices fs = new FacturaServices();
-            fs.setFactura(fs.get(Integer.parseInt(map.get("id_factura").toString())));
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date fechaEmision = sdf.parse(map.get("fechaEmision").toString());
-            fs.getFactura().setFechaEmision(fechaEmision);
-            
-            fs.getFactura().setMetodoPago(MetodoPago.valueOf(map.get("metodoPago").toString()));
-            fs.getFactura().setObservaciones(map.get("observaciones").toString());
-            fs.getFactura().setSubTotal(Float.parseFloat(map.get("subTotal").toString()));
-            fs.getFactura().setIVA(Float.parseFloat(map.get("IVA").toString()));
-            fs.getFactura().setTotal_USD(Float.parseFloat(map.get("total_USD").toString()));
-
-            fs.update();
-            res.put("msg", "OK");
-            res.put("msg", "Factura actualizada correctamente");
-            return Response.ok(res).build();
-
-        } catch (Exception e) {
-            System.out.println("Error en update data " + e.toString());
-            res.put("msg", "Error");
-            res.put("data", e.toString());
-            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(res).build();
-        }
-    }
 }
