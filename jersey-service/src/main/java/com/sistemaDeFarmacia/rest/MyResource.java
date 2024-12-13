@@ -5,6 +5,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import com.sistemaDeFarmacia.rest.controller.dao.PersonaDao;
+import java.util.HashMap;
+import javax.ws.rs.core.Response;
+import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
+import com.sistemaDeFarmacia.rest.controller.tda.list.Exception.ListEmptyException;
 
 /**
  * Root resource (exposed at "myresource" path)
@@ -19,8 +24,25 @@ public class MyResource {
      * @return String that will be returned as a text/plain response.
      */
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public String getIt() {
-        return "Got it!";
+        HashMap mapa = new HashMap<>();
+        PersonaDao pd = new PersonaDao();
+        String aux = "";
+        try {
+            pd.getPersona().setNombre("Juan");
+            pd.getPersona().setApellido("Perez");
+            pd.getPersona().setTelefono("0999999999");
+            pd.getPersona().setCedula("9999999999");
+            pd.getPersona().setDireccion("Quito");
+            pd.getPersona().setCorreo("correofalso@gmail.com");
+            pd.save();
+            aux = "La lista esta vasia"+pd.listAll().isEmpty();
+        } catch (Exception e) {
+            System.out.println("Error"+e);
+        }
+        mapa.put("msg","Ok");
+        mapa.put("data", "test"+aux);
+        return Response.ok(mapa).build().toString();
     }
 }
