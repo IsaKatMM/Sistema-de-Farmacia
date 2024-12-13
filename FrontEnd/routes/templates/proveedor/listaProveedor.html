@@ -79,7 +79,7 @@
       <!--  Header End -->
 
       <div class="container">
-        <h2 class="mt-5">Lista de Personas</h2>
+        <h2 class="mt-5">Lista de Personas y Proveedores</h2>
 
         <!-- Verifica si hay personas para mostrar -->
         {% if lista %}
@@ -94,6 +94,12 @@
                 <p><strong>Cédula:</strong> {{ persona.Cedula }}</p>
                 <p><strong>Dirección:</strong> {{ persona.Direccion }}</p>
                 <p><strong>Correo:</strong> {{ persona.Correo }}</p>
+                <!-- Datos del Proveedor -->
+                <h6 class="mt-3">Proveedor</h6>
+                <p><strong>Nombre de la Empresa:</strong> {{ persona.Proveedor.NombreEmpresa }}</p>
+                <p><strong>Tipo de Productos:</strong> {{ persona.Proveedor.TipoProductos }}</p>
+                <p><strong>Pedidos:</strong> {{ persona.Proveedor.Pedidos }}</p>
+                <p><strong>Productos Disponibles:</strong> {{ persona.Proveedor.ProductosDisponibles }}</p>
               </div>
             </div>
           </div>
