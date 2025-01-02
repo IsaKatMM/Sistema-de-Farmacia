@@ -23,26 +23,24 @@ public class MyResource {
      *
      * @return String that will be returned as a text/plain response.
      */
+   
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getIt() {
-        HashMap mapa = new HashMap<>();
+    public Response getIt(){
+        HashMap mapa = new HashMap();
         PersonaDao pd = new PersonaDao();
         String aux = "";
         try {
-            pd.getPersona().setNombre("Juan");
-            pd.getPersona().setApellido("Perez");
-            pd.getPersona().setTelefono("0999999999");
-            pd.getPersona().setCedula("9999999999");
-            pd.getPersona().setDireccion("Quito");
-            pd.getPersona().setCorreo("correofalso@gmail.com");
-            pd.save();
-            aux = "La lista esta vasia"+pd.listAll().isEmpty();
-        } catch (Exception e) {
-            System.out.println("Error"+e);
-        }
-        mapa.put("msg","Ok");
-        mapa.put("data", "test"+aux);
-        return Response.ok(mapa).build().toString();
-    }
+            aux ="La lista esta vacia"+ pd.listAll().isEmpty();
+        }catch (Exception e) {
+            
+            System.out.println("Error: "+e);
+            // TODO: handle exception
+
+        } 
+        mapa.put ("msg", "OK");
+        mapa.put ("data", "test");
+        return Response.ok(mapa).build();
+    }       
 }
+        
