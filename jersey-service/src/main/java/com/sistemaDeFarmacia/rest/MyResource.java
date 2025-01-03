@@ -5,9 +5,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import com.sistemaDeFarmacia.rest.controller.dao.PersonaDao;
 import java.util.HashMap;
 import javax.ws.rs.core.Response;
+
+import com.sistemaDeFarmacia.rest.controller.dao.PersonaDao;
+import com.sistemaDeFarmacia.rest.controller.dao.services.PersonaServices;
 import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
 import com.sistemaDeFarmacia.rest.controller.tda.list.Exception.ListEmptyException;
 
@@ -28,9 +30,12 @@ public class MyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getIt(){
         HashMap mapa = new HashMap();
-        PersonaDao pd = new PersonaDao();
+        PersonaServices pd = new PersonaServices();
         String aux = "";
         try {
+            pd.getPersona().setApellido("Morocho");
+            pd.getPersona().setNombre("Isabel");
+            pd.save();
             aux ="La lista esta vacia"+ pd.listAll().isEmpty();
         }catch (Exception e) {
             
