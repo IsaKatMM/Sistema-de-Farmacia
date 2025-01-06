@@ -9,7 +9,9 @@ import java.util.HashMap;
 import javax.ws.rs.core.Response;
 
 import com.sistemaDeFarmacia.rest.controller.dao.PersonaDao;
+import com.sistemaDeFarmacia.rest.controller.dao.ProveedorDao;
 import com.sistemaDeFarmacia.rest.controller.dao.services.PersonaServices;
+import com.sistemaDeFarmacia.rest.controller.dao.services.ProveedorServices;
 import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
 import com.sistemaDeFarmacia.rest.controller.tda.list.Exception.ListEmptyException;
 
@@ -30,11 +32,16 @@ public class MyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getIt(){
         HashMap mapa = new HashMap();
-        PersonaServices pd = new PersonaServices();
+        //PersonaServices pd = new PersonaServices();
+        ProveedorServices pd = new ProveedorServices();
         String aux = "";
         try {
-            pd.getPersona().setApellido("Morocho");
-            pd.getPersona().setNombre("Isabel");
+            /*pd.getPersona().setApellido("Morocho");
+            pd.getPersona().setNombre("Isabel");*/
+            pd.getProveedor().setNombre("Sofia");
+            pd.getProveedor().setApellido("Morocho");
+            pd.getProveedor().setTelefono("0987654321");
+            pd.getProveedor().setNombreEmpresa("VariFarma");
             pd.save();
             aux ="La lista esta vacia"+ pd.listAll().isEmpty();
         }catch (Exception e) {

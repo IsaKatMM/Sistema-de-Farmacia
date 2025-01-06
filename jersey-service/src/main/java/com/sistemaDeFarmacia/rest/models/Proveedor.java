@@ -1,29 +1,22 @@
 package com.sistemaDeFarmacia.rest.models;
+
 import com.sistemaDeFarmacia.rest.models.enumerador.TipoProducto;
+
 public class Proveedor extends Persona {
-    private Integer id;
     private String nombreEmpresa;
-    private Enum tipoProductos;
+    private TipoProducto tipoProductos;
     private String pedidos;
     private Boolean productosDisponibles;
-    
+
     public Proveedor() {
     }
 
-    public Proveedor(Integer id, String nombreEmpresa, Enum tipoProductos, String pedidos, Boolean productosDisponibles) {
-        this.id = id;
+    public Proveedor(Integer id, String nombreEmpresa, TipoProducto tipoProductos, String pedidos, Boolean productosDisponibles) {
+        super(id);
         this.nombreEmpresa = nombreEmpresa;
         this.tipoProductos = tipoProductos;
         this.pedidos = pedidos;
         this.productosDisponibles = productosDisponibles;
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getNombreEmpresa() {
@@ -34,11 +27,11 @@ public class Proveedor extends Persona {
         this.nombreEmpresa = nombreEmpresa;
     }
 
-    public Enum getTipoProductos() {
+    public TipoProducto getTipoProductos() {
         return this.tipoProductos;
     }
 
-    public void setTipoProductos(Enum tipoProductos) {
+    public void setTipoProductos(TipoProducto tipoProductos) {
         this.tipoProductos = tipoProductos;
     }
 
@@ -61,12 +54,4 @@ public class Proveedor extends Persona {
     public void setProductosDisponibles(Boolean productosDisponibles) {
         this.productosDisponibles = productosDisponibles;
     }
-    public TipoProducto getTipoProducto() {
-        return getTipoProducto();
-    }
-    public void setTipoProducto(TipoProducto tipoProducto) {
-        this.tipoProductos = tipoProducto;
-    }
-    
-    
 }
