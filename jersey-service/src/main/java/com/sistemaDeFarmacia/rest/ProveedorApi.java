@@ -81,10 +81,13 @@ public class ProveedorApi {
 
         try{
          //TODO
-        //VALIDATION (poner en la practica y trabajo final)-- como que la cedula no se repita y asi
+       
         //para acceder a los datos del HashMap es map.get --BAD REQUEST
         ProveedorServices ps= new ProveedorServices();
         //ps.getPersona().setNombre(map.get("nombres").toString());
+        ps.getProveedor().setNombre(map.get("nombre").toString());
+        ps.getProveedor().setApellido(map.get("apellido").toString());
+        ps.getProveedor().setTelefono(map.get("telefono").toString());
         ps.getProveedor().setNombreEmpresa(map.get("nombreEmpresa").toString());
         ps.getProveedor().setTipoProductos(TipoProducto.valueOf(map.get("tipoProductos").toString()));
         ps.getProveedor().setPedidos(map.get("pedidos").toString());
