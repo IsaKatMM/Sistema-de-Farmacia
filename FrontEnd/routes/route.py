@@ -2,7 +2,7 @@ from flask import Blueprint, abort, jsonify, request, render_template, redirect,
 import requests
 router = Blueprint('router', __name__)
 
-@router.route('/')
+@router.route('/login')
 def index():
     return render_template('index.html')
 
