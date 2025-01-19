@@ -20,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.sistemaDeFarmacia.rest.controller.dao.services.ProveedorServices;
 import com.sistemaDeFarmacia.rest.models.enumerador.TipoProducto;
 
+
 @Path("provetor")
 public class ProveedorApi {
     @Path("/list")
@@ -45,7 +46,7 @@ public class ProveedorApi {
         HashMap map = new HashMap<>();
         ProveedorServices ps = new ProveedorServices();
         map.put("msg", "Ok");
-        //map.put("data", ps.getTipos());
+        map.put("data", ps.getTipos());
         return Response.ok(map).build();
     }
     @Path("/get/{id}")//actualizar

@@ -2,6 +2,7 @@ package com.sistemaDeFarmacia.rest.controller.dao.services;
 import com.sistemaDeFarmacia.rest.controller.dao.ProveedorDao;
 import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
 import com.sistemaDeFarmacia.rest.models.Proveedor;
+import com.sistemaDeFarmacia.rest.models.enumerador.TipoProducto;
 
 public class ProveedorServices {
     private ProveedorDao obj;
@@ -30,5 +31,15 @@ public class ProveedorServices {
     public Proveedor get (Integer id) throws Exception {
         return obj.get(id);
     }
+
+
+    public TipoProductos getTipoProductos(String tipo) {
+        return obj.getTipoProductos(tipo);
+    }
+
+    public TipoProductos[] getTipos() {
+        return obj.getTipos();
+    }
+
 
 }
