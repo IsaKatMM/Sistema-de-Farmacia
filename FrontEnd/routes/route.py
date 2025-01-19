@@ -3,6 +3,7 @@ import requests
 import json
 router = Blueprint('router', __name__)
 
+<<<<<<< HEAD
 @router.route('/login')
 def index():
     return render_template('index.html')
@@ -58,4 +59,9 @@ def save_provetor():
 #"tipoProducto": form["tipoProducto"],
      #   "pedidos": form["pedidos"],
       #  "productosDisponibes": form["productosDisponibes"],
+=======
+>>>>>>> master
 
+@router.route('/')
+def home():
+    return render_template('home.html')
