@@ -5,5 +5,15 @@
         "nombre": "Sofia",
         "apellido": "Morocho",
         "telefono": "0987654321"
+    },
+    {
+        "nombreEmpresa": "CostFarma",
+        "tipoProductos": "COSMETICO",
+        "pedidos": "Cremas anti arrugas",
+        "productosDisponibles": 5,
+        "id": 2,
+        "nombre": "Isabel",
+        "apellido": "Morocho",
+        "telefono": "0965472136"
     }
 ]

@@ -6,18 +6,8 @@ public class Proveedor extends Persona {
     private String nombreEmpresa;
     private TipoProducto tipoProductos;
     private String pedidos;
-    private Boolean productosDisponibles;
+    private Integer productosDisponibles;
 
-    public Proveedor() {
-    }
-
-    public Proveedor(Integer id, String nombreEmpresa, TipoProducto tipoProductos, String pedidos, Boolean productosDisponibles) {
-        super(id);
-        this.nombreEmpresa = nombreEmpresa;
-        this.tipoProductos = tipoProductos;
-        this.pedidos = pedidos;
-        this.productosDisponibles = productosDisponibles;
-    }
 
     public String getNombreEmpresa() {
         return this.nombreEmpresa;
@@ -43,15 +33,14 @@ public class Proveedor extends Persona {
         this.pedidos = pedidos;
     }
 
-    public Boolean isProductosDisponibles() {
+    public Integer getProductosDisponibles() {
         return this.productosDisponibles;
     }
 
-    public Boolean getProductosDisponibles() {
-        return this.productosDisponibles;
-    }
-
-    public void setProductosDisponibles(Boolean productosDisponibles) {
+    public void setProductosDisponibles(Integer productosDisponibles) {
         this.productosDisponibles = productosDisponibles;
     }
+    public Proveedor() {
+    }
+
 }

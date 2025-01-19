@@ -1,0 +1,44 @@
+<div class="card">
+    <div class="card-header text-center">
+      <h4>Registro de Proveedores</h4>
+    </div>
+    <div class="card-body">
+      <!-- Formulario corregido con el estilo original intacto -->
+      <form class="row g-3 needs-validation" method="POST" action="/proveedor/save" novalidate>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="nombreEmpresa" class="form-label">Nombre de la empresa:</label>
+            <input type="text" class="form-control" id="nombreEmpresa" name="nombreEmpresa" placeholder="Ingrese el nombre de la empresa" required>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="nom" class="form-label">Nombre del Proveedor:</label>
+            <input type="text" class="form-control" id="nom" name="nom" placeholder="Ingrese el nombre del proveedor" required>
+          </div>
+          <div class="col-md-6">
+            <label for="telef" class="form-label">Teléfono del Proveedor:</label>
+            <input type="text" class="form-control" id="telef" name="telef" placeholder="Ingrese el teléfono del proveedor" required>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="ape" class="form-label">Apellido del Proveedor:</label>
+            <input type="text" class="form-control" id="ape" name="ape" placeholder="Ingrese el apellido" required>
+          </div>
+        </div>
+        <div class="text-center">
+          <!-- Botón de enviar y enlace de cancelar con estilos originales -->
+          <button type="submit" class="btn btn-primary me-2">Guardar</button>
+          <a href="/proveedor/list" class="btn btn-secondary me-2">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Manteniendo los estilos y scripts originales -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estiloProveedor.css') }}">
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  

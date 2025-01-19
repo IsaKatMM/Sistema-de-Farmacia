@@ -91,7 +91,7 @@ public class ProveedorApi {
         ps.getProveedor().setNombreEmpresa(map.get("nombreEmpresa").toString());
         ps.getProveedor().setTipoProductos(TipoProducto.valueOf(map.get("tipoProductos").toString()));
         ps.getProveedor().setPedidos(map.get("pedidos").toString());
-        ps.getProveedor().setProductosDisponibles(Boolean.parseBoolean(map.get("productosDisponibles").toString()));
+        ps.getProveedor().setProductosDisponibles(Integer.parseInt(map.get("productosDisponibles").toString()));
        
         ps.save();
                 res.put("msg","OK");
