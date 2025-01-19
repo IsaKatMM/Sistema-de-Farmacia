@@ -8,8 +8,6 @@ public class Producto {
     private String categoria;
     private int peso;
     private String marca;
-    private int stuck;
-    private int stuckMinimo;
 
 //constructor
     public Producto(){ 
@@ -66,20 +64,6 @@ public class Producto {
     }
     public void setMarca(String marca) {
         this.marca = marca;
-    }
-
-    public int getStuck() {
-        return this.stuck;
-    }
-    public void setStuck(int stuck) {
-        this.stuck = stuck;
-    }
-
-    public int getStuckMinimo() {
-        return this.stuckMinimo;
-    }
-    public void setStuckMinimo(int stuckMinimo) {
-        this.stuckMinimo = stuckMinimo;
     }
 
 }

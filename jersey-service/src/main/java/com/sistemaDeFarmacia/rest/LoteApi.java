@@ -37,30 +37,30 @@ public class LoteApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response save(HashMap<String, Object> map) {
+    public Response saveLote(String json) {
+        String jsonResponse = "";
         LoteServices ls = new LoteServices();
-        HashMap<String, Object> res = new HashMap<>();
-        Gson g = new Gson();
-        String a = g.toJson(map);
-        System.out.println("**********" + a);
+        Gson gson = new Gson();
+        
         try {
-            ls.getLote().setId((int) map.get("idLote"));
-            ls.getLote().setCantidad((int) map.get("cantidad"));
-            ls.getLote().setFechaEntrega(g.fromJson(map.get("fechaEntrega").toString(), java.util.Date.class));
-            ls.getLote().setPrecioLote(Float.parseFloat(map.get("precioLote").toString()));
-            ls.getLote().setFechaCaducidad(g.fromJson(map.get("fechaCaducidad").toString(), java.util.Date.class));
-            ls.getLote().setPrecioVenta(Float.parseFloat(map.get("precioVenta").toString()));
-            ls.getLote().setPrecioCompra(Float.parseFloat(map.get("precioCompra").toString()));
-            ls.getLote().setCodigoLote(map.get("codigoLote").toString());
-            ls.save();
-            res.put("msg", "OK");
-            res.put("data", "Lote guardado");
-            return Response.ok(res).build();
+            // Deserializa el JSON en un objeto Lote
+            Lote lote = gson.fromJson(json, Lote.class);
+    
+            // Guarda el Lote utilizando el servicio
+            ls.setLote(lote); 
+            ls.save();  // Llama al método save, que maneja la asignación
+    
+            // Preparar respuesta de éxito
+            // Preparar respuesta de éxito
+            jsonResponse = "{\"msg\":\"OK\",\"data\":\"Lote guardado correctamente\"}";
+
         } catch (Exception e) {
-            res.put("msg", "ERROR");
-            res.put("data", e.getMessage());
-            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(res).build();
+            System.out.println(e.getMessage());
+            // Preparar respuesta de error
+            jsonResponse = "{\"msg\":\"ERROR\",\"data\":\"" + e.getMessage() + "\"}";
         }
+        
+        return Response.ok(jsonResponse).build();
     }
 
     @Path("/get/{id}")

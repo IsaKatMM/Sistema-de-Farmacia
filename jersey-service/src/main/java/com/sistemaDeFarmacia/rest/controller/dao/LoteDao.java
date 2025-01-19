@@ -33,10 +33,11 @@ public class LoteDao extends AdapterDao {
     public Boolean save() throws Exception {
         Integer id = getListAll().getSize() + 1;
         lote.setId(id);
-        this.persist(this.lote);
-        this.listAll = listAll();
+        this.persist(this.lote); // Asegúrate de que persist() funcione correctamente
+        this.listAll = listAll(); // Asegúrate de que listAll() obtenga la lista actualizada
         return true;
     }
+    
 
     public Boolean update() throws Exception {
         Integer index = getLote().getIdLote() - 1;

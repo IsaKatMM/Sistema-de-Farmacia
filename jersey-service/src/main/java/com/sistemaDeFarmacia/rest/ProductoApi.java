@@ -83,8 +83,6 @@ public class ProductoApi {
             ps.getProducto().setCategoria(map.get(("Categoria")).toString());
             ps.getProducto().setPeso(Integer.parseInt(map.get("Peso").toString()));
             ps.getProducto().setMarca(map.get(("Marca")).toString());
-            ps.getProducto().setStuck(Integer.parseInt(map.get(("Stuck")).toString()));
-            ps.getProducto().setStuckMinimo(Integer.parseInt(map.get(("StuckMinimo")).toString()));
 
             ps.save();
             res.put("msf", "Ok");
@@ -114,8 +112,7 @@ public class ProductoApi {
             ps.getProducto().setCategoria(map.get(("Categoria")).toString());
             ps.getProducto().setPeso(Integer.parseInt(map.get("Peso").toString()));
             ps.getProducto().setMarca(map.get(("Marca")).toString());
-            ps.getProducto().setStuck(Integer.parseInt(map.get(("Stuck")).toString()));
-            ps.getProducto().setStuckMinimo(Integer.parseInt(map.get(("StuckMinimo")).toString()));
+
 
             ps.update();
             res.put("msf", "Ok");
