@@ -1,4 +1,5 @@
 package com.sistemaDeFarmacia.rest;
+
 import java.util.HashMap;
 
 import javax.validation.Valid;
@@ -20,7 +21,6 @@ import com.google.gson.reflect.TypeToken;
 import com.sistemaDeFarmacia.rest.controller.dao.services.ProveedorServices;
 import com.sistemaDeFarmacia.rest.models.enumerador.TipoProducto;
 
-
 @Path("provetor")
 public class ProveedorApi {
     @Path("/list")
@@ -31,25 +31,25 @@ public class ProveedorApi {
         ProveedorServices ps = new ProveedorServices();
         map.put("msg", "Ok");
         map.put("data", ps.listAll().toArray());
-        if (ps.listAll().isEmpty()){
-            map.put("data", new Object[]{});
+        if (ps.listAll().isEmpty()) {
+            map.put("data", new Object[] {});
         }
         return Response.ok(map).build();
     }
-    
 
     //
     @Path("/listType")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getType(){
+    public Response getType() {
         HashMap map = new HashMap<>();
         ProveedorServices ps = new ProveedorServices();
         map.put("msg", "Ok");
         map.put("data", ps.getTipos());
         return Response.ok(map).build();
     }
-    @Path("/get/{id}")//actualizar
+
+    @Path("/get/{id}") // actualizar
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getProvetor(@PathParam("id") Integer id) {
@@ -69,44 +69,137 @@ public class ProveedorApi {
 
         return Response.ok(map).build();
     }
+
     //
-    @Path ("/save")
+    /*
+     * @Path("/save")
+     * 
+     * @POST
+     * 
+     * @Consumes(MediaType.APPLICATION_JSON)
+     * 
+     * @Produces(MediaType.APPLICATION_JSON)
+     * public Response save(HashMap map) {
+     * HashMap res = new HashMap<>();
+     * Gson g = new Gson();
+     * String a = g.toJson(map);
+     * System.out.println("****" + a);
+     * 
+     * try {
+     * ProveedorServices ps = new ProveedorServices();
+     * 
+     * ps.getProveedor().setNombre(map.get("nombre").toString());
+     * ps.getProveedor().setApellido(map.get("apellido").toString());
+     * 
+     * // Validación del teléfono y nombre de empresa
+     * String telefono = map.get("telefono").toString();
+     * String nombreEmpresa = map.get("nombreEmpresa").toString();
+     * if (!telefono.matches("\\d{10}")) {
+     * throw new Exception("Número de teléfono inválido");
+     * }
+     * 
+     * // Verificar si el teléfono o el nombre de la empresa ya existen
+     * if (ps.telefonoEmpresaExiste(telefono, nombreEmpresa)) {
+     * throw new
+     * Exception("El número de teléfono o el nombre de la empresa ya están registrados"
+     * );
+     * }
+     * 
+     * ps.getProveedor().setTelefono(telefono);
+     * ps.getProveedor().setNombreEmpresa(nombreEmpresa);
+     * 
+     * ps.getProveedor().setTipoProductos(TipoProducto.valueOf(map.get(
+     * "tipoProductos").toString()));
+     * ps.getProveedor().setPedidos(map.get("pedidos").toString());
+     * ps.getProveedor().setProductosDisponibles(Integer.parseInt(map.get(
+     * "productosDisponibles").toString()));
+     * 
+     * ps.save();
+     * res.put("msg", "OK");
+     * res.put("data", "Proveedor registrado correctamente");
+     * return Response.ok(res).build();
+     * 
+     * } catch (Exception e) {
+     * System.out.println("Error en sav en data" + e.toString());
+     * res.put("msg", "Error");
+     * res.put("data", e.toString());
+     * return Response.status(Status.INTERNAL_SERVER_ERROR).entity(res).build();
+     * }
+     * }
+     */
+    @Path("/save")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response save(HashMap map){
+    public Response save(HashMap map) {
         HashMap res = new HashMap<>();
         Gson g = new Gson();
         String a = g.toJson(map);
-        System.out.println("****"+a);
+        System.out.println("****" + a);
 
-        try{
-         //TODO
-       
-        //para acceder a los datos del HashMap es map.get --BAD REQUEST
-        ProveedorServices ps= new ProveedorServices();
-        //ps.getPersona().setNombre(map.get("nombres").toString());
-        ps.getProveedor().setNombre(map.get("nombre").toString());
-        ps.getProveedor().setApellido(map.get("apellido").toString());
-        ps.getProveedor().setTelefono(map.get("telefono").toString());
-        ps.getProveedor().setNombreEmpresa(map.get("nombreEmpresa").toString());
-        ps.getProveedor().setTipoProductos(TipoProducto.valueOf(map.get("tipoProductos").toString()));
-        ps.getProveedor().setPedidos(map.get("pedidos").toString());
-        ps.getProveedor().setProductosDisponibles(Integer.parseInt(map.get("productosDisponibles").toString()));
-       
-        ps.save();
-                res.put("msg","OK");
-                res.put("data","Persona registrada correctamente");
-                return Response.ok(res).build();
- 
-        } catch (Exception e){
-            System.out.println("Error en sav en data"+e.toString());
-            res.put("msg","Error");
+        try {
+            ProveedorServices ps = new ProveedorServices();
+
+            if (map.get("nombre") != null) {
+                System.out.println("Nombre: " + map.get("nombre"));
+                ps.getProveedor().setNombre(map.get("nombre").toString());
+            } else {
+                System.out.println("Nombre es nulo");
+            }
+
+            if (map.get("apellido") != null) {
+                System.out.println("Apellido: " + map.get("apellido"));
+                ps.getProveedor().setApellido(map.get("apellido").toString());
+            } else {
+                System.out.println("Apellido es nulo");
+            }
+
+            if (map.get("telefono") != null) {
+                System.out.println("Telefono: " + map.get("telefono"));
+                ps.getProveedor().setTelefono(map.get("telefono").toString());
+            } else {
+                System.out.println("Telefono es nulo");
+            }
+
+            if (map.get("nombreEmpresa") != null) {
+                System.out.println("NombreEmpresa: " + map.get("nombreEmpresa"));
+                ps.getProveedor().setNombreEmpresa(map.get("nombreEmpresa").toString());
+            } else {
+                System.out.println("NombreEmpresa es nulo");
+            }
+
+            if (map.get("tipoProducto") != null) {
+                System.out.println("TipoProducto: " + map.get("tipoProducto"));
+                ps.getProveedor().setTipoProductos(TipoProducto.valueOf(map.get("tipoProducto").toString()));
+            } else {
+                System.out.println("TipoProducto es nulo");
+            }
+
+            if (map.get("pedidos") != null) {
+                System.out.println("Pedidos: " + map.get("pedidos"));
+                ps.getProveedor().setPedidos(map.get("pedidos").toString());
+            } else {
+                System.out.println("Pedidos es nulo");
+            }
+
+            if (map.get("productosDisponibles") != null) {
+                System.out.println("ProductosDisponibles: " + map.get("productosDisponibles"));
+                ps.getProveedor().setProductosDisponibles(Integer.parseInt(map.get("productosDisponibles").toString()));
+            } else {
+                System.out.println("ProductosDisponibles es nulo");
+            }
+
+            ps.save();
+            res.put("msg", "OK");
+            res.put("data", "Proveedor registrado correctamente");
+            return Response.ok(res).build();
+
+        } catch (Exception e) {
+            System.out.println("Error en sav en data" + e.toString());
+            res.put("msg", "Error");
             res.put("data", e.toString());
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity(res).build();
-            //TODO
         }
     }
 
 }
-

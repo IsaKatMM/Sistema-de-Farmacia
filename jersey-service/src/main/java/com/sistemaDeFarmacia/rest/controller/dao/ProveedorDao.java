@@ -4,6 +4,7 @@ import java.util.function.ToIntBiFunction;
 import com.sistemaDeFarmacia.rest.controller.dao.implement.AdapterDao;
 import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
 import com.sistemaDeFarmacia.rest.models.Proveedor;
+import com.sistemaDeFarmacia.rest.models.enumerador.TipoProducto;
 
 
 public class ProveedorDao extends AdapterDao<Proveedor> {
@@ -37,6 +38,15 @@ public class ProveedorDao extends AdapterDao<Proveedor> {
         this.persist(this.proveedor);
         return true;
     }
-   //poner metodos de provedor 
+   //metodos de provedor 
+
+   public TipoProducto getTipoProductos(String tipo) {
+       return TipoProducto.valueOf(tipo);
+   }
+
+   public TipoProducto[] getTipos() {
+       return TipoProducto.values();
+   }
+
 
 }
