@@ -36,6 +36,14 @@ public class ProveedorDao extends AdapterDao<Proveedor> {
         Integer id = getListAll().getSize()+1;
         proveedor.setId(id);
         this.persist(this.proveedor);
+        this.listAll=listAll();
+        return true;
+    }
+
+    public Boolean update() throws Exception {
+        
+        this.merge(getProveedor(), getProveedor().getId() - 1);
+        this.listAll=listAll();
         return true;
     }
    //metodos de provedor 
@@ -47,6 +55,8 @@ public class ProveedorDao extends AdapterDao<Proveedor> {
    public TipoProducto[] getTipos() {
        return TipoProducto.values();
    }
+
+  
 
 
 }

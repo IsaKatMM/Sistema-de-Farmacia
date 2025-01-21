@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.sistemaDeFarmacia.rest.controller.dao.services.ProveedorServices;
+import com.sistemaDeFarmacia.rest.models.Proveedor;
 import com.sistemaDeFarmacia.rest.models.enumerador.TipoProducto;
 
 @Path("provetor")
@@ -63,7 +64,7 @@ public class ProveedorApi {
         map.put("msg", "Ok");
         map.put("data", ps.getProveedor());
         if (ps.getProveedor().getId() == null) {
-            map.put("data", "No existe la persona con ese identificador");
+            map.put("data", "No existe ele proveedor con ese identificador");
             return Response.status(Status.BAD_REQUEST).entity(map).build();
         }
 
@@ -190,6 +191,89 @@ public class ProveedorApi {
             }
 
             ps.save();
+            res.put("msg", "OK");
+            res.put("data", "Proveedor registrado correctamente");
+            return Response.ok(res).build();
+
+        } catch (Exception e) {
+            System.out.println("Error en sav en data" + e.toString());
+            res.put("msg", "Error");
+            res.put("data", e.toString());
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(res).build();
+        }
+    }
+
+    @Path("/update")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response update(HashMap map) {
+        HashMap res = new HashMap<>();
+
+        try {
+            ProveedorServices ps = new ProveedorServices();
+            if (map.get("id") != null) {
+                int id = Integer.parseInt(map.get("id").toString());
+                System.out.println("ID: " + id);
+                Proveedor proveedor = ps.get(id);
+                if (proveedor == null) {
+                    throw new Exception("Proveedor con ID " + id + " no encontrado.");
+                }
+                ps.setProveedor(proveedor); 
+            } else {
+                throw new Exception("El campo 'id' es obligatorio para la actualización.");
+            }
+
+            if (map.get("nombre") != null) {
+                System.out.println("Nombre: " + map.get("nombre"));
+                ps.getProveedor().setNombre(map.get("nombre").toString());
+            } else {
+                System.out.println("Nombre es nulo");
+            }
+
+            if (map.get("apellido") != null) {
+                System.out.println("Apellido: " + map.get("apellido"));
+                ps.getProveedor().setApellido(map.get("apellido").toString());
+            } else {
+                System.out.println("Apellido es nulo");
+            }
+
+            if (map.get("telefono") != null) {
+                System.out.println("Telefono: " + map.get("telefono"));
+                ps.getProveedor().setTelefono(map.get("telefono").toString());
+            } else {
+                System.out.println("Telefono es nulo");
+            }
+
+            if (map.get("nombreEmpresa") != null) {
+                System.out.println("NombreEmpresa: " + map.get("nombreEmpresa"));
+                ps.getProveedor().setNombreEmpresa(map.get("nombreEmpresa").toString());
+            } else {
+                System.out.println("NombreEmpresa es nulo");
+            }
+
+            if (map.get("tipoProducto") != null) {
+                System.out.println("TipoProducto: " + map.get("tipoProducto"));
+                ps.getProveedor().setTipoProductos(TipoProducto.valueOf(map.get("tipoProducto").toString()));
+            } else {
+                System.out.println("TipoProducto es nulo");
+            }
+
+            if (map.get("pedidos") != null) {
+                System.out.println("Pedidos: " + map.get("pedidos"));
+                ps.getProveedor().setPedidos(map.get("pedidos").toString());
+            } else {
+                System.out.println("Pedidos es nulo");
+            }
+
+            if (map.get("productosDisponibles") != null) {
+                System.out.println("ProductosDisponibles: " + map.get("productosDisponibles"));
+                ps.getProveedor().setProductosDisponibles(Integer.parseInt(map.get("productosDisponibles").toString()));
+            } else {
+                System.out.println("ProductosDisponibles es nulo");
+            }
+
+            ps.update();
             res.put("msg", "OK");
             res.put("data", "Proveedor registrado correctamente");
             return Response.ok(res).build();

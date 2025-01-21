@@ -21,23 +21,21 @@ public class AdapterDao<T> implements InterfazDao<T> {
     public T get(Integer id) throws Exception {
         LinkedList<T> list = listAll();
         if (!list.isEmpty()) {
-            T [] matriz = list.toArray();
+            T[] matriz = list.toArray();
             return matriz[id - 1];
-            
+
         }
         return null;
     }
-    
 
     public LinkedList listAll() {
         LinkedList list = new LinkedList<>();
 
         try {
-           String data = readFile();
-           T[] matrix = (T[]) g.fromJson(data, java.lang.reflect.Array.newInstance(clazz, 0).getClass());
-           list.toList(matrix);
+            String data = readFile();
+            T[] matrix = (T[]) g.fromJson(data, java.lang.reflect.Array.newInstance(clazz, 0).getClass());
+            list.toList(matrix);
         } catch (Exception e) {
-            
 
         }
         return list;
@@ -49,7 +47,7 @@ public class AdapterDao<T> implements InterfazDao<T> {
         String info = g.toJson(list.toArray());
         saveFile(info);
     }
-    
+
     public void persist(T object) throws Exception {
         LinkedList list = listAll();
         list.add(object);
@@ -74,7 +72,6 @@ public class AdapterDao<T> implements InterfazDao<T> {
         return sb.toString().trim();
     }
 
-
     private void saveFile(String data) throws Exception {
         File file = new File(URL + clazz.getSimpleName() + ".json");
         file.getParentFile().mkdirs();
@@ -89,6 +86,17 @@ public class AdapterDao<T> implements InterfazDao<T> {
             f.flush();
         } catch (Exception e) {
             System.out.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+    }
+//aqui puse el el adapterDao para eliminar
+    public void delete(Integer index) throws Exception {
+        LinkedList<T> list = listAll();
+        if (index >= 0 && index < list.size()) {
+            list.remove(index);
+            String info = g.toJson(list.toArray());
+            saveFile(info);
+        } else {
+            throw new Exception("Índice fuera de rango");
         }
     }
 }

@@ -24,6 +24,10 @@ public class ProveedorServices {
         return obj.save();
     }
 
+    public Boolean update() throws Exception {
+        return obj.update();
+    }
+
     public LinkedList listAll() {
         return obj.getListAll();
     }

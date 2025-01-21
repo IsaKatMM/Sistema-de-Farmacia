@@ -1,0 +1,96 @@
+{% extends 'home.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <!-- Encabezado con ícono -->
+        <div class="card-header text-center bg-primary text-white d-flex align-items-center justify-content-center">
+            <i class="fas fa-truck fa-lg me-2"></i>
+            <h4 class="m-0">Edición de Proveedores</h4>
+        </div>
+        
+        <div class="card-body">
+            <form method="POST" action="/proveedores/proveedor/update" novalidate>
+                <input type="hidden" value="{{provetor.id}}" name="id">
+                <div class="row">
+                    <!-- Columna izquierda -->
+                    <div class="col-md-5">
+                        <div class="mb-3">
+                            <label for="nom" class="form-label fw-bold">Nombre del proveedor:</label>
+                            <input type="text" class="form-control border-primary rounded-pill" id="nom" name="nom" placeholder="Ingrese el nombre del proveedor" required value="{{provetor.nombre}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="ape" class="form-label fw-bold">Apellido del proveedor:</label>
+                            <input type="text" class="form-control border-primary rounded-pill" id="ape" name="ape" placeholder="Ingrese el apellido del proveedor" required value="{{provetor.apellido}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="telef" class="form-label fw-bold">Teléfono del proveedor:</label>
+                            <input type="text" class="form-control border-primary rounded-pill" id="telef" name="telef" placeholder="Ingrese el teléfono del proveedor" required value="{{provetor.telefono}}">
+                        </div>
+                    </div>
+
+                    <!-- Línea divisoria -->
+                    <div class="col-md-1 d-flex justify-content-center">
+                        <div class="vr" style="border: 1px solid #ccc; height: 100%;"></div>
+                    </div>
+
+                    <!-- Columna derecha -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="nombreEmpresa" class="form-label fw-bold">Nombre de la empresa:</label>
+                            <input type="text" class="form-control border-success rounded-pill" id="nombreEmpresa" name="nombreEmpresa" placeholder="Ingrese el nombre de la empresa" required value="{{provetor.nombreEmpresa}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="lbltipo" class="form-label fw-bold">Tipo de productos:</label>
+                            <select class="form-control border-success rounded-pill" required name="tipoProducto">
+                              {% for item in lista %}
+                                <option value="{{ item }}">{{ item }}</option>
+                              {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="pedidos" class="form-label fw-bold">Pedidos:</label>
+                          <input type="text" class="form-control border-success rounded-pill" id="pedidos" name="pedidos" placeholder="Ingrese la descripción del pedido" required value="{{provetor.pedidos}}">
+                      </div>
+
+                        <div class="mb-3">
+                            <label for="productosDisponibles" class="form-label fw-bold">Productos disponibles:</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control border-success rounded-pill" id="productosDisponibles" name="productosDisponibles" placeholder="Cantidad inicial" required  value="{{provetor.productosDisponibles}}">
+                                <button type="button" class="btn btn-outline-primary" onclick="incrementar()">+</button>
+                                <button type="button" class="btn btn-outline-secondary" onclick="decrementar()">-</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success me-2">Guardar</button>
+                    <a href="/proveedores/proveedor/list" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts para incrementar/decrementar valores -->
+<script>
+    function incrementar() {
+        let input = document.getElementById('productosDisponibles');
+        input.value = parseInt(input.value || 0) + 1;
+    }
+
+    function decrementar() {
+        let input = document.getElementById('productosDisponibles');
+        if (parseInt(input.value || 0) > 0) {
+            input.value = parseInt(input.value) - 1;
+        }
+    }
+</script>
+
+<!-- Enlaces a estilos de Bootstrap y Font Awesome -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

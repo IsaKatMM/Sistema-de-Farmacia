@@ -1,42 +1,65 @@
 {% extends 'home.html' %}
 {% block content %}
 
-<div class="card mt-4">
-  <div class="card-header text-center">
-    <h5>Lista de Proveedores</h5>
-  </div>
+<div class="container mt-5">
+    <!-- Mensajes Flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container mt-3">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
 
-  <div class="col-10">
-    <a href="/proveedores/proveedor/register" class="btn btn-success">Nuevo Proveedor</a>
-  <div class="card-body">
-    <table class="table table-bordered text-center">
-      <thead>
-        <tr>
-          <th>Nro</th>
-          <th>Nombre de la empresa</th>
-          <th>Proveedor</th>
-          <th>Teléfono del Proveedor</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in lista %}
-        <tr>
-          <td>{{ item.id }}</td>
-          <td>{{ item.nombreEmpresa }}</td>
-          <td>{{ item.nombre }} {{ item.apellido }}</td>
-          <td>{{ item.telefono }}</td>
-          <td><a href="/admin/person/edit/{{item.id}}" class="btn btn-info">MODIFICAR</a>  <a href="/admin/person/edit/{{item.id}}" class="btn btn-info">ELIMINAR</a></td>
-          
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+    <div class="card shadow-lg">
+        <!-- Encabezado con ícono -->
+        <div class="card-header text-center bg-primary text-white d-flex align-items-center justify-content-center">
+            <i class="fas fa-truck fa-lg me-2"></i>
+            <h4 class="m-0">Lista de Proveedores</h4>
+        </div>
+        
+        <div class="card-body">
+            <!-- Botón "Nuevo Proveedor" a la izquierda -->
+            <div class="mb-3 text-start">
+                <a href="/proveedores/proveedor/register" class="btn btn-success">Nuevo Proveedor</a>
+            </div>
+            <table class="table table-bordered text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Nro</th>
+                        <th>Nombre de la empresa</th>
+                        <th>Proveedor</th>
+                        <th>Teléfono del Proveedor</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in lista %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nombreEmpresa }}</td>
+                        <td>{{ item.nombre }} {{ item.apellido }}</td>
+                        <td>{{ item.telefono }}</td>
+                        <td>
+                            <a href="/proveedores/proveedor/edit/{{ item.id }}" class="btn btn-info">MODIFICAR</a>
+                            <a href="/admin/person/delete/{{ item.id }}" class="btn btn-danger">ELIMINAR</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/estiloProveedor.css') }}">
-</head>
+
+<!-- Enlaces a estilos de Bootstrap y Font Awesome -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 {% endblock %}
