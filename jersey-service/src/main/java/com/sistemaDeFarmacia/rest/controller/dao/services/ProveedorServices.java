@@ -2,6 +2,7 @@ package com.sistemaDeFarmacia.rest.controller.dao.services;
 
 import com.sistemaDeFarmacia.rest.controller.dao.ProveedorDao;
 import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
+import com.sistemaDeFarmacia.rest.models.Persona;
 import com.sistemaDeFarmacia.rest.models.Proveedor;
 import com.sistemaDeFarmacia.rest.models.enumerador.TipoProducto;
 import java.io.FileReader;
@@ -26,6 +27,10 @@ public class ProveedorServices {
 
     public Boolean update() throws Exception {
         return obj.update();
+    }
+    
+    public Boolean delete(Integer positionType) throws Exception {
+        return obj.delete(positionType);  // Llama al método delete del ProveedorDao
     }
 
     public LinkedList listAll() {
@@ -71,6 +76,26 @@ public class ProveedorServices {
         }
 
         return existe;
+    }
+    ///////////////////
+
+    /*  public LinkedList order(Integer type_order, String atributo){
+        return obj.order(type_order, atributo);
+    }*/
+    public LinkedList<Proveedor> order(Integer type_order, String atributo) {
+        return obj.order(type_order, atributo);
+    }
+
+    public LinkedList order_object (Integer type, String atributo) throws Exception {
+        return obj.listAll().order(atributo, type);
+    }
+
+    public LinkedList <Proveedor> buscar_apellidos (String texto){
+        return obj.buscar_apellidos(texto);
+    }
+
+    public Persona buscar_telefono(String texto){
+        return obj.buscar_telefono(texto);
     }
 }
 

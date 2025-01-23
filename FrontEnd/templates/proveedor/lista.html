@@ -35,6 +35,10 @@
                         <th>Nombre de la empresa</th>
                         <th>Proveedor</th>
                         <th>Teléfono del Proveedor</th>
+                        <th>Nombre de la empresa</th>
+                        <th>Tipo de producto</th>
+                        <th>Pedidos</th>
+                        <th>Productos disponibles</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -45,6 +49,11 @@
                         <td>{{ item.nombreEmpresa }}</td>
                         <td>{{ item.nombre }} {{ item.apellido }}</td>
                         <td>{{ item.telefono }}</td>
+                        <td>{{item.nombreEmpresa}}</td>
+                        <td>{{item.tipoProductos}}</td>
+                        <td>{{item.pedidos}}</td>
+                        <td>{{item.productosDisponibles}}</td>
+
                         <td>
                             <a href="/proveedores/proveedor/edit/{{ item.id }}" class="btn btn-info">MODIFICAR</a>
                             <a href="/admin/person/delete/{{ item.id }}" class="btn btn-danger">ELIMINAR</a>
