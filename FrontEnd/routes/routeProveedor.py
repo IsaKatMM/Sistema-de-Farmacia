@@ -60,6 +60,7 @@ def update_provetor():
     form = request.form
     dataF = {
         "id": form["id"],
+        "cedula": form["cedula"],
         "nombre": form["nom"],
         "apellido": form["ape"],
         "telefono": form["telef"],
@@ -78,32 +79,38 @@ def update_provetor():
         flash(str(dat["data"]), category='error')
     return redirect("/proveedores/proveedor/list")
 
+############################################################################################################
 #Metodo de buscar y ordenar
+
 @routeProveedor.route('/proveedor/search/<criterio>/<texto>')
 def view_buscar_proveedor(criterio, texto):
-    url= "http://localhost:8099/myapp/provetor/list/search/"
+    url = "http://localhost:8099/myapp/provetor/list/search/"
     if criterio == "apellido":
-        r = requests.get(url+texto)
+        r = requests.get(url + texto)
     elif criterio == "telefono":
-        r= requests.get(url +"telefono/"+texto)
-    
+        r = requests.get(url + "telefono/" + texto)
+        
+    elif criterio == "cedula":
+        r = requests.get(url + "cedula/" + texto)
+    else:
+        return "Criterio no válido", 400
 
     data1 = r.json()
     if r.status_code == 200:
         if type(data1["data"]) is dict:
-            #print (type(data1["data"]))
-            list =[]
+            list = []
             list.append(data1["data"])
-            return render_template('proveedor/lista.html', lista = list)
+            return render_template('proveedor/lista.html', lista=list)
         else:
             return render_template('proveedor/lista.html', lista = data1["data"])
     else:
-        return render_template('proveedor/lista.html', lista = [], message = "No existe el elemento")
-    
+        return render_template('proveedor/lista.html', lista=[], message="No existe el elemento")
+
+
     
 @routeProveedor.route('/proveedor/order/<attributo>/<tipo>')
 def view_order_proveedor(attributo, tipo):
-        url= "http://localhost:8099/myapp/proveedor/list/order/"+attributo+"/"+tipo    
+        url= "http://localhost:8099/myapp/provetor/list/order/"+attributo+"/"+tipo    
         r= requests.get(url)
 
         data1 = r.json()

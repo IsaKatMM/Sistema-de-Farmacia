@@ -1,7 +1,6 @@
 package com.sistemaDeFarmacia.rest;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 
 import javax.validation.Valid;
 import javax.validation.Validation;
@@ -25,6 +24,8 @@ import com.sistemaDeFarmacia.rest.controller.dao.services.PersonaServices;
 import com.sistemaDeFarmacia.rest.controller.dao.services.ProveedorServices;
 import com.sistemaDeFarmacia.rest.models.Proveedor;
 import com.sistemaDeFarmacia.rest.models.enumerador.TipoProducto;
+import com.sistemaDeFarmacia.rest.models.Persona;
+import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
 
 @Path("provetor")
 public class ProveedorApi {
@@ -144,6 +145,12 @@ public class ProveedorApi {
 
         try {
             ProveedorServices ps = new ProveedorServices();
+            if (map.get("cedula") != null) {
+                System.out.println("Cedula: " + map.get("cedula"));
+                ps.getProveedor().setCedula(map.get("cedula").toString());
+            } else {
+                System.out.println("Telefono es nulo");
+            }
 
             if (map.get("nombre") != null) {
                 System.out.println("Nombre: " + map.get("nombre"));
@@ -227,6 +234,12 @@ public class ProveedorApi {
             } else {
                 throw new Exception("El campo 'id' es obligatorio para la actualización.");
             }
+            if (map.get("cedula") != null) {
+                System.out.println("Cedula: " + map.get("cedula"));
+                ps.getProveedor().setCedula(map.get("cedula").toString());
+            } else {
+                System.out.println("Telefono es nulo");
+            }
 
             if (map.get("nombre") != null) {
                 System.out.println("Nombre: " + map.get("nombre"));
@@ -291,8 +304,8 @@ public class ProveedorApi {
     }
 
     // eliminar
-
-    @DELETE
+   
+    /*@DELETE
     @Path("/delete/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -317,7 +330,7 @@ public class ProveedorApi {
                     .entity("{\"message\": \"Error al eliminar el proveedor: " + e.getMessage() + "\"}")
                     .build();
         }
-    }
+    }*/
 
     /// search
     @Path("/list/search/{texto}")
@@ -327,14 +340,44 @@ public class ProveedorApi {
         HashMap map = new HashMap<>();
         ProveedorServices ps = new ProveedorServices();
         map.put("msg", "Ok");
-        com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList<Proveedor> lsita = ps.buscar_apellidos(texto);
+        LinkedList lsita = ps.buscar_apellidos(texto);
         map.put("data", lsita.toArray());
         if (lsita.isEmpty()) {
             map.put("data", new Object[] {});
         }
         return Response.ok(map).build();
     }
-
+    ///////////////////////////////////////////
+    @Path("/list/search/cedula/{texto}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getProvetorsCed(@PathParam("texto") String texto) {
+        HashMap map = new HashMap<>();
+        ProveedorServices ps = new ProveedorServices();
+        map.put("msg", "Ok");
+        try {
+            System.out.println("Buscando proveedor con cedula: " + texto);
+            Proveedor proveedor = (Proveedor) ps.buscar_cedula(texto);
+            System.out.println(
+                    "Proveedor encontrado: " + (proveedor != null ? proveedor.getCedula() : "No encontrado"));
+            if (proveedor != null) {
+                ps.setProveedor(proveedor);
+                map.put("data", proveedor);
+                return Response.ok(map).header("Access-Control-Allow-Origin", "*").build();
+            } else {
+                map.put("data", "No existe el proveedor con esa cedula");
+                return Response.status(Status.BAD_REQUEST).header("Access-Control-Allow-Origin", "*").entity(map)
+                        .build();
+            }
+        } catch (Exception e) {
+            System.out.println("Error en getProvetorsCed: " + e.getMessage());
+            e.printStackTrace(); // Esto imprimirá la traza completa del error en la consola
+            map.put("msg", "Error");
+            map.put("data", e.toString());
+            return Response.status(Status.INTERNAL_SERVER_ERROR).header("Access-Control-Allow-Origin", "*").entity(map).build();
+        }
+    }
+/////////////////////////////////////////////////
     @Path("/list/search/telefono/{texto}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)

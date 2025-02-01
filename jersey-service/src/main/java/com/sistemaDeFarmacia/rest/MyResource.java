@@ -38,7 +38,8 @@ public class MyResource {
         try {
             /*pd.getPersona().setApellido("Morocho");
             pd.getPersona().setNombre("Isabel");*/
-            pd.getProveedor().setNombre("Sofia");
+            pd.getProveedor().setCedula("1234567890");
+            pd.getProveedor().setNombre("Isabel");
             pd.getProveedor().setApellido("Morocho");
             pd.getProveedor().setTelefono("0987654321");
             pd.getProveedor().setNombreEmpresa("VariFarma");

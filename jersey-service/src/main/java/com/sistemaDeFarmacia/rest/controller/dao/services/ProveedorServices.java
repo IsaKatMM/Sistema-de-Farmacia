@@ -29,9 +29,9 @@ public class ProveedorServices {
         return obj.update();
     }
     
-    public Boolean delete(Integer positionType) throws Exception {
+   /*  public Boolean delete(Integer positionType) throws Exception {
         return obj.delete(positionType);  // Llama al método delete del ProveedorDao
-    }
+    }*/
 
     public LinkedList listAll() {
         return obj.getListAll();
@@ -96,6 +96,10 @@ public class ProveedorServices {
 
     public Persona buscar_telefono(String texto){
         return obj.buscar_telefono(texto);
+    }
+
+    public Persona buscar_cedula(String texto){
+        return obj.buscar_cedula(texto);
     }
 }
 

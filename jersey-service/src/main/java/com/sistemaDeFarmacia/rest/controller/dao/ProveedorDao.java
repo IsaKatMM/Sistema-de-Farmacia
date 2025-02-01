@@ -67,7 +67,7 @@ public class ProveedorDao extends AdapterDao<Proveedor> {
      * }
      */
 
-    public Boolean delete(Integer id) throws Exception {
+    /*public Boolean delete(Integer id) throws Exception {
         System.out.println("Intentando eliminar el proveedor con ID: " + id);
 
         // Obtener el proveedor por ID
@@ -103,7 +103,7 @@ public class ProveedorDao extends AdapterDao<Proveedor> {
             System.out.println("Error al eliminar el proveedor: " + e.getMessage());
             throw new Exception("Error al eliminar el proveedor: " + e.getMessage());
         }
-    }
+    }*/
 
     ///////////////////////////////////////////////////////////////////////////////////////
     public LinkedList<Proveedor> order(Integer type_order, String atributo) {
@@ -182,6 +182,24 @@ public class ProveedorDao extends AdapterDao<Proveedor> {
      * return proveedor;
      * }
      */
+    public Proveedor buscar_cedula(String texto) {
+        Proveedor proveedor = null;
+        LinkedList<Proveedor> listita = listAll();
+        System.out.println("Lista de proveedores obtenida: " + listita.getSize() + " elementos");
+        if (!listita.isEmpty()) {
+            Proveedor[] aux = listita.toArray();
+            for (Proveedor p : aux) {
+                System.out.println("Revisando cedula: " + p.getCedula());
+                if (p.getCedula().equals(texto)) {
+                    proveedor = p;
+                    break;
+                }
+            }
+        }
+        System.out.println("Proveedor encontrado: " + (proveedor != null ? proveedor.getCedula() : "No encontrado"));
+        return proveedor;
+    }
+
     public Proveedor buscar_telefono(String texto) {
         Proveedor proveedor = null;
         LinkedList<Proveedor> listita = listAll();
