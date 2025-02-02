@@ -1,0 +1,43 @@
+<!-- templates/lote/registro.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Lote</title>
+</head>
+<body>
+    <h1>Registrar Nuevo Lote</h1>
+    <form action="{{ url_for('routeLote.save_lote') }}" method="POST">
+        <label for="codigoLote">Código Lote:</label>
+        <input type="text" name="codigoLote" required><br><br>
+
+        <label for="producto">Producto:</label>
+        <select name="producto" required>
+            {% for producto in productos %}
+            <option value="{{ producto.idProducto }}">{{ producto.nombreProducto }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" name="cantidad" required><br><br>
+
+        <label for="precioLote">Precio Lote:</label>
+        <input type="number" step="0.01" name="precioLote" required><br><br>
+
+        <label for="fechaEntrega">Fecha Entrega:</label>
+        <input type="date" name="fechaEntrega" required><br><br>
+
+        <label for="precioCompra">Precio Compra:</label>
+        <input type="number" step="0.01" name="precioCompra" required><br><br>
+
+        <label for="precioVenta">Precio Venta:</label>
+        <input type="number" step="0.01" name="precioVenta" required><br><br>
+
+        <label for="fechaCaducidad">Fecha Caducidad:</label>
+        <input type="date" name="fechaCaducidad" required><br><br>
+
+        <input type="submit" value="Registrar Lote">
+    </form>
+</body>
+</html>

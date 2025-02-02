@@ -1,0 +1,38 @@
+{% extends index.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Producto.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1>Registrar Nuevo Producto</h1>
+<form method="POST" action="{{ url_for('routeProducto.save_producto') }}">
+    <label for="nombreProducto">Nombre del Producto:</label>
+    <input type="text" id="nombreProducto" name="nombreProducto" required><br>
+
+    <label for="laboratorio">Laboratorio:</label>
+    <input type="text" id="laboratorio" name="laboratorio" required><br>
+
+    <label for="requiereReceta">Requiere Receta:</label>
+    <input type="checkbox" id="requiereReceta" name="requiereReceta"><br>
+
+    <label for="categoria">Categoría:</label>
+    <input type="text" id="categoria" name="categoria" required><br>
+
+    <label for="peso">Peso (en gramos):</label>
+    <input type="number" id="peso" name="peso" required><br>
+
+    <label for="marca">Marca:</label>
+    <input type="text" id="marca" name="marca" required><br>
+
+    <label for="tipoProducto">Tipo de Producto:</label>
+    <select id="tipoProducto" name="tipoProducto" required>
+        {% for tipo in lista %}
+            <option value="{{ tipo.name }}">{{ tipo.name }}</option>
+        {% endfor %}
+    </select><br>
+
+    <button type="submit">Guardar</button>
+</form>
+<a href="{{ url_for('routeProducto.list_producto') }}">Volver a la lista</a>
+{% endblock %}

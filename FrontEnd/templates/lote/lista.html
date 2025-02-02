@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Lotes</title>
+</head>
+<body>
+
+<h1>Lista de Lotes</h1>
+
+<!-- Formulario de búsqueda por producto -->
+<form method="GET" action="{{ url_for('routeLote.view_search_by_product') }}">
+    <label for="nombreProducto">Buscar por Producto: </label>
+    <input type="text" id="nombreProducto" name="nombreProducto" required>
+    <button type="submit">Buscar</button>
+</form>
+
+<!-- Tabla de Lotes -->
+<table>
+    <thead>
+        <tr>
+            <th>ID Lote</th>
+            <th>Cantidad</th>
+            <th>Fecha Entrega</th>
+            <th>Precio Lote</th>
+            <th>Fecha Caducidad</th>
+            <th>Producto</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for lote in lista %}
+            <tr>
+                <td>{{ lote.idLote }}</td>
+                <td>{{ lote.cantidad }}</td>
+                <td>{{ lote.fechaEntrega }}</td>
+                <td>{{ lote.precioLote }}</td>
+                <td>{{ lote.fechaCaducidad }}</td>
+                <td>{{ lote.producto.nombreProducto }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Ordenar Lotes -->
+<h2>Ordenar Lotes</h2>
+<form method="GET" action="{{ url_for('routeLote.view_order') }}">
+    <label for="attribute">Ordenar por:</label>
+    <select name="attribute" id="attribute">
+        <option value="idLote">ID Lote</option>
+        <option value="fechaEntrega">Fecha Entrega</option>
+    </select>
+
+    <label for="type">Tipo de orden:</label>
+    <select name="type" id="type">
+        <option value="1">Ascendente</option>
+        <option value="2">Descendente</option>
+    </select>
+
+    <button type="submit">Ordenar</button>
+</form>
+
+</body>
+</html>

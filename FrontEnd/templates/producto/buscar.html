@@ -1,0 +1,54 @@
+{% extends "index.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Producto.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1>Buscar Productos</h1>
+<form method="GET" action="{{ url_for('routeProducto.view_buscar_producto', criterio='nombre', texto='') }}">
+    <label for="criterio">Criterio de Búsqueda:</label>
+    <select id="criterio" name="criterio">
+        <option value="nombre">Nombre</option>
+        <option value="tipo">Tipo</option>
+    </select><br>
+
+    <label for="texto">Texto a Buscar:</label>
+    <input type="text" id="texto" name="texto" required><br>
+
+    <button type="submit">Buscar</button>
+</form>
+
+{% if resultados %}
+<h2>Resultados de la Búsqueda</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Laboratorio</th>
+            <th>Requiere Receta</th>
+            <th>Categoría</th>
+            <th>Peso</th>
+            <th>Marca</th>
+            <th>Tipo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in resultados %}
+        <tr>
+            <td>{{ producto.idProducto }}</td>
+            <td>{{ producto.nombreProducto }}</td>
+            <td>{{ producto.laboratorio }}</td>
+            <td>{{ producto.requiereReceta }}</td>
+            <td>{{ producto.categoria }}</td>
+            <td>{{ producto.peso }}</td>
+            <td>{{ producto.marca }}</td>
+            <td>{{ producto.tipoProducto }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+<a href="{{ url_for('routeProducto.list_producto') }}">Volver a la lista</a>
+{% endblock %}
