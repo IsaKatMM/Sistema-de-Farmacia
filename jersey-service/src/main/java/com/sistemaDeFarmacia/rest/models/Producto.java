@@ -1,5 +1,7 @@
 package com.sistemaDeFarmacia.rest.models;
 
+import com.sistemaDeFarmacia.rest.models.enumerador.TipoProducto;
+
 public class Producto {
     private Integer idProducto; 
     private String nombreProducto;
@@ -8,14 +10,13 @@ public class Producto {
     private String categoria;
     private int peso;
     private String marca;
+    private TipoProducto tipoProducto; // Campo de tipo enum
 
-//constructor
-    public Producto(){ 
-
+    // Constructor
+    public Producto() { 
     }
 
-//getters and setters
-
+    // Getters and Setters
 
     public Integer getIdProducto() {
         return this.idProducto;
@@ -66,4 +67,18 @@ public class Producto {
         this.marca = marca;
     }
 
+    // Getter para tipoProducto (devuelve el enum directamente)
+    public TipoProducto getTipoProducto() {
+        return this.tipoProducto;
+    }
+
+    // Setter para tipoProducto (acepta el enum directamente)
+    public void setTipoProducto(TipoProducto tipoProducto) {
+        this.tipoProducto = tipoProducto;
+    }
+
+    // Método adicional para manejar String (opcional)
+    public void setTipoProducto(String tipoProductoStr) {
+        this.tipoProducto = TipoProducto.valueOf(tipoProductoStr.toUpperCase());
+    }
 }

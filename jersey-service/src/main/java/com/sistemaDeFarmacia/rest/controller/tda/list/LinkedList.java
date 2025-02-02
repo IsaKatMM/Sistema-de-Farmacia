@@ -242,7 +242,45 @@ public E delete(Integer post) throws ListEmptyException {
     }
 }
 
+public LinkedList<E> order(Integer type) throws Exception {
+    if (!isEmpty()) {
+        E data = this.header.getInfo();
+        if (data instanceof Number || data instanceof String) {
+            E[] lista = this.toArray();
+            reset();
+            for (int i = 1; i < lista.length; i++) {
+                E aux = lista[i]; // valor a ordenar
+                int j = i - 1; // índice anterior
+                while (j >= 0 && compare(lista[j], aux, type)) {
+                    lista[j + 1] = lista[j--]; // desplaza elementos hacia la derecha
+                }
+                lista[j + 1] = aux; // inserta el valor en su posición correcta
+            }
+            this.toList(lista);
+        }
+    }
+    return this;
+}
 
+public LinkedList<E> order(String attribute, Integer type) throws Exception {
+    if (!isEmpty()) {
+        E data = this.header.getInfo();
+        if (data instanceof Object) {
+            E[] lista = this.toArray();
+            reset();
+            for (int i = 1; i < lista.length; i++) {
+                E aux = lista[i]; // valor a ordenar
+                int j = i - 1; // índice anterior
+                while (j >= 0 && atrribute_compare(attribute, lista[j], aux, type)) {
+                    lista[j + 1] = lista[j--]; // desplaza elementos hacia la derecha
+                }
+                lista[j + 1] = aux; // inserta el valor en su posición correcta
+            }
+            this.toList(lista);
+        }
+    }
+    return this;
+}
 
 private Boolean compare(Object a, Object b, Integer type) {
     switch (type) {
@@ -463,6 +501,8 @@ public LinkedList<E> linearSearch(String attribute, String value) throws Excepti
     return listita;
 
 }
+
+
 
 
 

@@ -1,131 +1,142 @@
 package com.sistemaDeFarmacia.rest;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.sistemaDeFarmacia.rest.controller.dao.services.LoteServices;
+import com.sistemaDeFarmacia.rest.controller.tda.list.LinkedList;
 import com.sistemaDeFarmacia.rest.models.Lote;
 
 @Path("lote")
 public class LoteApi {
-    
+
+    private LoteServices loteServices = new LoteServices();
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create(); // Configuración de fechas
+
     @Path("/all")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllLotes() throws Exception {
-        HashMap<String, Object> map = new HashMap<>();
-        LoteServices ls = new LoteServices();
-        map.put("msg", "OK");
-        map.put("data", ls.listAll().toArray());
-        if (ls.listAll().isEmpty()) {
-            map.put("data", new Object[]{});
-        }
-        return Response.ok(map).build();
-    }
-
-    @Path("/save")
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response saveLote(String json) {
-        String jsonResponse = "";
-        LoteServices ls = new LoteServices();
-        Gson gson = new Gson();
-        
+    public Response getAllLotes() {
+        HashMap<String, Object> response = new HashMap<>();
         try {
-            // Deserializa el JSON en un objeto Lote
-            Lote lote = gson.fromJson(json, Lote.class);
-    
-            // Guarda el Lote utilizando el servicio
-            ls.setLote(lote); 
-            ls.save();  // Llama al método save, que maneja la asignación
-    
-            // Preparar respuesta de éxito
-            // Preparar respuesta de éxito
-            jsonResponse = "{\"msg\":\"OK\",\"data\":\"Lote guardado correctamente\"}";
-
+            response.put("msg", "OK");
+            response.put("data", loteServices.listAll().toArray());
+            return Response.ok(response).build();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            // Preparar respuesta de error
-            jsonResponse = "{\"msg\":\"ERROR\",\"data\":\"" + e.getMessage() + "\"}";
+            response.put("msg", "ERROR");
+            response.put("data", e.getMessage());
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(response).build();
         }
-        
-        return Response.ok(jsonResponse).build();
     }
 
     @Path("/get/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getLote(@PathParam("id") Integer id) {
-        HashMap<String, Object> map = new HashMap<>();
-        LoteServices ls = new LoteServices();
-        
+        HashMap<String, Object> response = new HashMap<>();
         try {
-            ls.setLote(ls.get(id));
+            Lote lote = loteServices.get(id);
+            if (lote == null) {
+                response.put("msg", "ERROR");
+                response.put("data", "No existe un lote con ese identificador");
+                return Response.status(Status.NOT_FOUND).entity(response).build();
+            }
+            response.put("msg", "OK");
+            response.put("data", lote);
+            return Response.ok(response).build();
         } catch (Exception e) {
-            map.put("msg", "ERROR");
-            map.put("data", e.getMessage());
-            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(map).build();
+            response.put("msg", "ERROR");
+            response.put("data", e.getMessage());
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(response).build();
         }
-        
-        map.put("msg", "OK");
-        map.put("data", ls.getLote());
-
-        if (ls.getLote().getIdLote() == 0) { 
-            map.put("data", "No existe un lote con ese identificador");
-            return Response.status(Status.BAD_REQUEST).entity(map).build();
-        }
-
-        return Response.ok(map).build();
     }
 
     @Path("/update")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(HashMap<String, Object> map) {
-        HashMap<String, Object> res = new HashMap<>();
-        LoteServices ls = new LoteServices();
+    public Response update(String json) {
+        HashMap<String, Object> response = new HashMap<>();
+        try {
+            Lote lote = gson.fromJson(json, Lote.class);
+            Lote existingLote = loteServices.get(lote.getIdLote());
+            if (existingLote == null) {
+                response.put("msg", "ERROR");
+                response.put("data", "No existe un lote con ese identificador");
+                return Response.status(Status.NOT_FOUND).entity(response).build();
+            }
+            loteServices.setLote(lote);
+            loteServices.update();
+            response.put("msg", "OK");
+            response.put("data", "Lote actualizado correctamente");
+            return Response.ok(response).build();
+        } catch (Exception e) {
+            response.put("msg", "ERROR");
+            response.put("data", e.getMessage());
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(response).build();
+        }
+    }
+
+    @Path("/list/order/{attribute}/{type}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFechaEntrega(@PathParam("attribute") String attribute, @PathParam("type") Integer type) {
+        HashMap map = new HashMap<>();
+        LoteServices fs = new LoteServices();
+        map.put("msg", "OK");
         
         try {
-            Lote existingLote = ls.get(Integer.parseInt(map.get("idLote").toString()));
-            
-            if (existingLote == null) {
-                res.put("msg", "ERROR");
-                res.put("data", "No existe un lote con ese identificador");
-                return Response.status(Status.NOT_FOUND).entity(res).build();
+            LinkedList lsita = fs.order_object(type, attribute);
+            map.put("data", lsita.toArray());
+            if (lsita.isEmpty()) {
+                map.put("data", new Object[] {});
             }
-            
-            existingLote.setCantidad((int) map.get("cantidad"));
-            existingLote.setFechaEntrega(new Gson().fromJson(map.get("fechaEntrega").toString(), java.util.Date.class));
-            existingLote.setPrecioLote(Float.parseFloat(map.get("precioLote").toString()));
-            existingLote.setFechaCaducidad(new Gson().fromJson(map.get("fechaCaducidad").toString(), java.util.Date.class));
-            existingLote.setPrecioVenta(Float.parseFloat(map.get("precioVenta").toString()));
-            existingLote.setPrecioCompra(Float.parseFloat(map.get("precioCompra").toString()));
-            existingLote.setCodigoLote(map.get("codigoLote").toString());
-            
-            ls.setLote(existingLote);
-            ls.update();
-            
-            res.put("msg", "OK");
-            res.put("data", "Lote actualizado correctamente");
-            return Response.ok(res).build();
-            
         } catch (Exception e) {
-            System.out.println("Error al actualizar el lote: " + e.toString());
-            res.put("msg", "ERROR");
-            res.put("data", e.toString());
-            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(res).build();
+           
+        }
+
+        return Response.ok(map).build();
+    }
+
+    @Path("/saveWithProduct/{nombreProducto}")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response saveLoteWithProduct(String json, @PathParam("nombreProducto") String nombreProducto) {
+        HashMap<String, Object> response = new HashMap<>();
+        try {
+            Lote lote = gson.fromJson(json, Lote.class);
+            loteServices.setLote(lote);
+            loteServices.saveWithProduct(nombreProducto);
+            response.put("msg", "OK");
+            response.put("data", "Lote guardado correctamente con el producto asociado");
+            return Response.ok(response).build();
+        } catch (Exception e) {
+            response.put("msg", "ERROR");
+            response.put("data", e.getMessage());
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(response).build();
+        }
+    }
+
+    @Path("/byProduct/{nombreProducto}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getLotesByProducto(@PathParam("nombreProducto") String nombreProducto) {
+        HashMap<String, Object> response = new HashMap<>();
+        try {
+            LinkedList<Lote> lotes = loteServices.getLotesByProducto(nombreProducto);
+            response.put("msg", "OK");
+            response.put("data", lotes.toArray());
+            return Response.ok(response).build();
+        } catch (Exception e) {
+            response.put("msg", "ERROR");
+            response.put("data", e.getMessage());
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(response).build();
         }
     }
 }

@@ -10,6 +10,7 @@ public class Lote {
     private Float precioVenta;
     private Float precioCompra;
     private String codigoLote;
+    private Producto producto;
 
 
     public Lote() {}
@@ -76,5 +77,13 @@ public class Lote {
 
     public void setCodigoLote(String codigoLote) {
         this.codigoLote = codigoLote;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 }
