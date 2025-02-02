@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Productos - Sistema de Farmacia{% endblock %}
+
+{% block content %}
+<h1>Lista de Productos</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Laboratorio</th>
+            <th>Requiere Receta</th>
+            <th>Categoría</th>
+            <th>Peso</th>
+            <th>Marca</th>
+            <th>Tipo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for producto in productos %}
+        <tr>
+            <td>{{ producto.idProducto }}</td>
+            <td>{{ producto.nombreProducto }}</td>
+            <td>{{ producto.laboratio }}</td>
+            <td>{{ producto.requiereReceta }}</td>
+            <td>{{ producto.categoria }}</td>
+            <td>{{ producto.peso }}</td>
+            <td>{{ producto.marca }}</td>
+            <td>{{ producto.tipoProducto }}</td>
+            <td>
+                <a href="{{ url_for('router.update_producto_form', id=producto.idProducto) }}">Editar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('router.inicio') }}">Volver al Inicio</a>
+{% endblock %}

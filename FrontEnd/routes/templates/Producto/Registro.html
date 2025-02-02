@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar Producto - Sistema de Farmacia{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Producto.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1>Registrar Nuevo Producto</h1>
+<form method="POST" action="{{ url_for('router.save_producto') }}">
+    <label for="NombreProducto">Nombre del Producto:</label>
+    <input type="text" id="NombreProducto" name="NombreProducto" required><br>
+
+    <label for="Laboratorio">Laboratorio:</label>
+    <input type="text" id="Laboratorio" name="Laboratorio" required><br>
+
+    <label for="RequiereReceta">Requiere Receta:</label>
+    <input type="checkbox" id="RequiereReceta" name="RequiereReceta"><br>
+
+    <label for="Categoria">Categoría:</label>
+    <input type="text" id="Categoria" name="Categoria" required><br>
+
+    <label for="Peso">Peso (en gramos):</label>
+    <input type="number" id="Peso" name="Peso" required><br>
+
+    <label for="Marca">Marca:</label>
+    <input type="text" id="Marca" name="Marca" required><br>
+
+    <label for="TipoProducto">Tipo de Producto:</label>
+    <select id="TipoProducto" name="TipoProducto" required>
+        {% for tipo in tipos %}
+            <option value="{{ tipo.name }}">{{ tipo.name }}</option>
+        {% endfor %}
+    </select><br>
+
+    <button type="submit">Guardar</button>
+</form>
+<a href="{{ url_for('router.inicio') }}">Volver al Inicio</a>
+{% endblock %}
