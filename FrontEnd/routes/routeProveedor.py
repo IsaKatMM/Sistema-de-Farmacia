@@ -21,11 +21,12 @@ def save_provetor():
     headers = {'Content-type': 'application/json'}
     form = request.form
     dataF = {
+        "cedula": form["ced"],
         "nombre": form["nom"],
         "apellido": form["ape"],
         "telefono": form["telef"],
         "nombreEmpresa": form["nombreEmpresa"],
-        "tipoProducto": form["tipoProducto"],
+        "tipoProductos": form["tipoProductos"],
         "pedidos": form["pedidos"],
         "productosDisponibles": form["productosDisponibles"],
     }
@@ -60,12 +61,12 @@ def update_provetor():
     form = request.form
     dataF = {
         "id": form["id"],
-        "cedula": form["cedula"],
+        "cedula": form["ced"],
         "nombre": form["nom"],
         "apellido": form["ape"],
         "telefono": form["telef"],
         "nombreEmpresa": form["nombreEmpresa"],
-        "tipoProductos": form["tipoProducto"],
+        "tipoProductos": form["tipoProductos"],
         "pedidos": form["pedidos"],
         "productosDisponibles": form["productosDisponibles"],
     }

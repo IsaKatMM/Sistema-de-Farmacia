@@ -76,12 +76,11 @@ public class LinkedList<E> {
         }
     }
 
-    @SuppressWarnings("unused")
     private E getFirst() throws IndexOutOfBoundsException, ListEmptyException {
         return this.getNode(0).getInfo();
     }
 
-    @SuppressWarnings("unused")
+
     private E getLast() throws IndexOutOfBoundsException, ListEmptyException {
         return this.getNode(this.size - 1).getInfo();
     }
@@ -307,7 +306,6 @@ public class LinkedList<E> {
     }
 
     private E[] createSubArray(E[] array, int start, int end) {
-        @SuppressWarnings("unchecked")
         E[] subArray = (E[]) new Object[end - start];
         for (int i = start, j = 0; i < end; i++, j++) {
             subArray[j] = array[i];
@@ -332,7 +330,7 @@ public class LinkedList<E> {
     }
 
     private E[] merge(E[] left, E[] right, String attribute, Integer type) throws Exception {
-        @SuppressWarnings("unchecked")
+
         E[] result = (E[]) new Object[left.length + right.length];
         int i = 0, j = 0, k = 0;
 

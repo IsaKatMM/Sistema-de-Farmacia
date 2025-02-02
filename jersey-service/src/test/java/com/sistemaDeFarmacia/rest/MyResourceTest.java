@@ -1,4 +1,4 @@
-package com.sistemaFarmacia.rest;
+package com.sistemaDeFarmacia.rest;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;

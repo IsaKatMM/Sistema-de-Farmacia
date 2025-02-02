@@ -1,6 +1,9 @@
+C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\models\User.java
 C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\MyResource.java
 C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\controller\dao\PersonaDao.java
 C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\controller\dao\DetalleCompraDao.java
+C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\LoginApi.java
+C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\controller\dao\services\UserService.java
 C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\models\DetalleCompra.java
 C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\models\Proveedor.java
 C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\ProveedorApi.java
@@ -20,6 +23,7 @@ C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\
 C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\controller\dao\implement\AdapterDao.java
 C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\models\Lote.java
 C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\controller\dao\FacturaDao.java
+C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\UserRepository.java
 C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\controller\tda\list\Exception\ListEmptyException.java
 C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\models\enumerador\MetodoPago.java
 C:\Users\HP\Desktop\Git_Repositorio\Sistema-de-Farmacia\jersey-service\src\main\java\com\sistemaDeFarmacia\rest\models\Factura.java

@@ -1,6 +1,8 @@
 package com.sistemaDeFarmacia.rest;
 
+
 import java.util.HashMap;
+
 
 import javax.validation.Valid;
 import javax.validation.Validation;
@@ -76,63 +78,6 @@ public class ProveedorApi {
         return Response.ok(map).build();
     }
 
-    //
-    /*
-     * @Path("/save")
-     * 
-     * @POST
-     * 
-     * @Consumes(MediaType.APPLICATION_JSON)
-     * 
-     * @Produces(MediaType.APPLICATION_JSON)
-     * public Response save(HashMap map) {
-     * HashMap res = new HashMap<>();
-     * Gson g = new Gson();
-     * String a = g.toJson(map);
-     * System.out.println("****" + a);
-     * 
-     * try {
-     * ProveedorServices ps = new ProveedorServices();
-     * 
-     * ps.getProveedor().setNombre(map.get("nombre").toString());
-     * ps.getProveedor().setApellido(map.get("apellido").toString());
-     * 
-     * // Validación del teléfono y nombre de empresa
-     * String telefono = map.get("telefono").toString();
-     * String nombreEmpresa = map.get("nombreEmpresa").toString();
-     * if (!telefono.matches("\\d{10}")) {
-     * throw new Exception("Número de teléfono inválido");
-     * }
-     * 
-     * // Verificar si el teléfono o el nombre de la empresa ya existen
-     * if (ps.telefonoEmpresaExiste(telefono, nombreEmpresa)) {
-     * throw new
-     * Exception("El número de teléfono o el nombre de la empresa ya están registrados"
-     * );
-     * }
-     * 
-     * ps.getProveedor().setTelefono(telefono);
-     * ps.getProveedor().setNombreEmpresa(nombreEmpresa);
-     * 
-     * ps.getProveedor().setTipoProductos(TipoProducto.valueOf(map.get(
-     * "tipoProductos").toString()));
-     * ps.getProveedor().setPedidos(map.get("pedidos").toString());
-     * ps.getProveedor().setProductosDisponibles(Integer.parseInt(map.get(
-     * "productosDisponibles").toString()));
-     * 
-     * ps.save();
-     * res.put("msg", "OK");
-     * res.put("data", "Proveedor registrado correctamente");
-     * return Response.ok(res).build();
-     * 
-     * } catch (Exception e) {
-     * System.out.println("Error en sav en data" + e.toString());
-     * res.put("msg", "Error");
-     * res.put("data", e.toString());
-     * return Response.status(Status.INTERNAL_SERVER_ERROR).entity(res).build();
-     * }
-     * }
-     */
     @Path("/save")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -269,7 +214,7 @@ public class ProveedorApi {
                 System.out.println("NombreEmpresa es nulo");
             }
 
-            if (map.get("tipoProducto") != null) {
+            if (map.get("tipoProductos") != null) {
                 System.out.println("TipoProducto: " + map.get("tipoProducto"));
                 ps.getProveedor().setTipoProductos(TipoProducto.valueOf(map.get("tipoProducto").toString()));
             } else {
@@ -304,7 +249,7 @@ public class ProveedorApi {
     }
 
     // eliminar
-   
+
     @Path("/eliminar/{id}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
@@ -324,7 +269,6 @@ public class ProveedorApi {
         }
     }
 
-
     /// search
     @Path("/list/search/{texto}")
     @GET
@@ -340,6 +284,7 @@ public class ProveedorApi {
         }
         return Response.ok(map).build();
     }
+
     ///////////////////////////////////////////
     @Path("/list/search/cedula/{texto}")
     @GET
@@ -367,10 +312,12 @@ public class ProveedorApi {
             e.printStackTrace(); // Esto imprimirá la traza completa del error en la consola
             map.put("msg", "Error");
             map.put("data", e.toString());
-            return Response.status(Status.INTERNAL_SERVER_ERROR).header("Access-Control-Allow-Origin", "*").entity(map).build();
+            return Response.status(Status.INTERNAL_SERVER_ERROR).header("Access-Control-Allow-Origin", "*").entity(map)
+                    .build();
         }
     }
-/////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////
     @Path("/list/search/telefono/{texto}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -403,7 +350,7 @@ public class ProveedorApi {
     }
 
     // ordenar
-   
+
     @Path("/list/order/{attribute}/{type}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -428,4 +375,5 @@ public class ProveedorApi {
         return Response.ok(map).build();
     }
 
+   
 }

@@ -57,12 +57,12 @@
                     
                 </select>
                 <input id="texto" placeholder="Ingresa un texto a buscar"/>
-                <a id="btn" class="btn btn-success">Buscar</a>
+                <a id="btn" class="btn btn-primary">Buscar</a>
             </div>
 
             <!-- Botón "Nuevo Proveedor" -->
             <div class="mb-3 text-start">
-                <a href="/proveedores/proveedor/register" class="btn btn-success">Nuevo Proveedor</a>
+                <a href="/proveedores/proveedor/register" class="btn btn-primary">Nuevo Proveedor</a>
             </div>
 
             <!-- Tabla de proveedores -->
@@ -94,7 +94,7 @@
                             <td>{{item.cedula}}</td>
                             <td>{{ item.nombre }} {{ item.apellido }}</td>
                             <td>{{ item.telefono }}</td>
-                            <td>{{ item.tipoProductos }}</td>
+                            <td>{{ item.tipoProductos}}</td>
                             <td>{{ item.pedidos }}</td>
                             <td>{{ item.productosDisponibles }}</td>
                             <td>

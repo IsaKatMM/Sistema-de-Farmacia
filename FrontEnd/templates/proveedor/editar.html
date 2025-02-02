@@ -15,9 +15,11 @@
                 <div class="row">
                     <!-- Columna izquierda -->
                     <div class="col-md-5">
+
+                        
                         <div class="mb-3">
-                            <label for="cedula" class="form-label fw-bold">Nombre del proveedor:</label>
-                            <input type="text" class="form-control border-primary rounded-pill" id="cedula" name="cedula" placeholder="Ingrese la cedula del proveedor" required value="{{provetor.cedula}}">
+                            <label for="ced" class="form-label fw-bold">Cédula del proveedor:</label>
+                            <input type="text" class="form-control border-primary rounded-pill" id="ced" name="ced" placeholder="Ingrese la cedula del proveedor" required value="{{provetor.cedula}}">
                         </div>
                         <div class="mb-3">
                             <label for="nom" class="form-label fw-bold">Nombre del proveedor:</label>
@@ -45,8 +47,8 @@
                             <input type="text" class="form-control border-success rounded-pill" id="nombreEmpresa" name="nombreEmpresa" placeholder="Ingrese el nombre de la empresa" required value="{{provetor.nombreEmpresa}}">
                         </div>
                         <div class="mb-3">
-                            <label for="lbltipo" class="form-label fw-bold">Tipo de productos:</label>
-                            <select class="form-control border-success rounded-pill" required name="tipoProducto">
+                            <label for="tipoProductos" class="form-label fw-bold">Tipo de productos:</label>
+                            <select class="form-control border-success rounded-pill" required name="tipoProductos">
                               {% for item in lista %}
                                 <option value="{{ item }}">{{ item }}</option>
                               {% endfor %}
