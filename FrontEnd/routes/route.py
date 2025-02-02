@@ -3,7 +3,6 @@ import requests
 router = Blueprint('router', __name__)
 
 
-<<<<<<< HEAD
 @router.route('/proveedor/save', methods=["POST"])
 def save_person():
     headers = {'Content-type': 'application/json'}
@@ -36,8 +35,6 @@ def save_person():
         flash(f"Error inesperado: {str(e)}", category='error')
 
     return redirect("/proveedor/list")
-=======
 @router.route('/')
 def home():
     return render_template('home.html')
->>>>>>> master
