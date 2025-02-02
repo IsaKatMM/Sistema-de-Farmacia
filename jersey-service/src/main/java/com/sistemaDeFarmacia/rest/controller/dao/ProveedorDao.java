@@ -60,14 +60,18 @@ public class ProveedorDao extends AdapterDao<Proveedor> {
 
     // Método delete 
     public Boolean delete(Integer id) throws Exception {
-        for (int i = 0; i < getListAll().getSize(); i++) {
-            Proveedor pro = getListAll().get(i);
-            if (pro.getId().equals(id)) {
-                getListAll().delete(i);
-                return true;
-            }
+        LinkedList<Proveedor> list = getListAll();
+        Proveedor proveedor = get(id);
+        if (proveedor != null) {
+            list.remove(proveedor);
+            String info = g.toJson(list.toArray());
+            saveFile(info);
+            this.listAll = list;
+            return true;
+        } else {
+            System.out.println("Generador con id " + id + " no encontrado.");
+            return false;
         }
-        throw new Exception("Proveedor no encontrado con ID: " + id);
     }
     ///////////////////////////////////////////////////////////////////////////////////////
     public LinkedList<Proveedor> order(Integer type_order, String atributo) {

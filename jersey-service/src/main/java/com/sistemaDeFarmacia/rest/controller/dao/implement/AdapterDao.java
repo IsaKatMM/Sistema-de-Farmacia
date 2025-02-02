@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 
 public class AdapterDao<T> implements InterfazDao<T> {
     private Class clazz;
-    private Gson g;
+    protected Gson g;
     public static String URL = "media/";
 
     public AdapterDao(Class clazz) {
@@ -76,7 +76,7 @@ public class AdapterDao<T> implements InterfazDao<T> {
         return sb.toString().trim();
     }
 
-    private void saveFile(String data) throws Exception {
+    protected void saveFile(String data) throws Exception {
         File file = new File(URL + clazz.getSimpleName() + ".json");
         file.getParentFile().mkdirs();
 
@@ -92,6 +92,23 @@ public class AdapterDao<T> implements InterfazDao<T> {
             System.out.println("Error al escribir en el archivo: " + e.getMessage());
         }
     }
+
+    /*private void saveFile(String data) throws Exception {
+        File file = new File(URL + clazz.getSimpleName() + ".json");
+        file.getParentFile().mkdirs();
+
+        if (!file.exists()) {
+            System.out.println("Creando el archivo JSON: " + file.getAbsolutePath());
+            file.createNewFile();
+        }
+
+        try (FileWriter f = new FileWriter(file)) {
+            f.write(data);
+            f.flush();
+        } catch (Exception e) {
+            System.out.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+    }*/
     
     //eliminar por posición
     /*public Boolean delete(Integer positionType) throws Exception {
@@ -157,4 +174,5 @@ public class AdapterDao<T> implements InterfazDao<T> {
     
 
     
+
 }

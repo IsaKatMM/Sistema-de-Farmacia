@@ -375,5 +375,38 @@ public class ProveedorApi {
         return Response.ok(map).build();
     }
 
+/////////////////////////////////DELETE
+    @Path("/delete/{id}")
+    @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteProveedor(@PathParam("id") Integer id) {
+        HashMap<String, Object> res = new HashMap<>();
+        // System.out.println("aqui entro a delete");
+        ProveedorServices gs = new ProveedorServices();
+        try {
+            // System.out.println("aqui entro a delete 1");
+            boolean success = gs.delete(id);
+            // System.out.println("aqui entro a delete 2");
+            if (success) {
+                // System.out.println("aqui entro a delete 3");
+                res.put("msg", "Ok");
+                res.put("data", "Proveedor eliminado correctamente");
+                // System.out.println("aqui entro a delete 4");
+                return Response.ok(res).build();
+            } else {
+                // System.out.println("aqui entro a delete else");
+                res.put("msg", "Error");
+                res.put("msg", "Proveedor no encontrado");
+                return Response.status(Status.NOT_FOUND).entity(res).build();
+            }
+        } catch (Exception e) {
+            // System.out.println("aqui entro a delete cathc");
+            res.put("msg", "Error");
+            res.put("data", e.toString());
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(res).build();
+        }
+    }
+
    
 }

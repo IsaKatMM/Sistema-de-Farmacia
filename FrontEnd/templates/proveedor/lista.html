@@ -88,26 +88,61 @@
                 </thead>
                 <tbody>
                     {% for item in lista %}
-                        <tr>
-                            <td>{{ item.id }}</td>
-                            <td>{{ item.nombreEmpresa }}</td>
-                            <td>{{item.cedula}}</td>
-                            <td>{{ item.nombre }} {{ item.apellido }}</td>
-                            <td>{{ item.telefono }}</td>
-                            <td>{{ item.tipoProductos}}</td>
-                            <td>{{ item.pedidos }}</td>
-                            <td>{{ item.productosDisponibles }}</td>
-                            <td>
-                                <a href="/proveedores/proveedor/edit/{{ item.id }}" class="btn btn-info">MODIFICAR</a>
-                                <a href="/admin/person/delete/{{ item.id }}" class="btn btn-danger">ELIMINAR</a>
-                            </td>
-                        </tr>
+                    <tr id="proveedor-{{ item.id }}">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nombreEmpresa }}</td>
+                        <td>{{ item.cedula }}</td>
+                        <td>{{ item.nombre }} {{ item.apellido }}</td>
+                        <td>{{ item.telefono }}</td>
+                        <td>{{ item.tipoProductos }}</td>
+                        <td>{{ item.pedidos }}</td>
+                        <td>{{ item.productosDisponibles }}</td>
+                        <td>
+                            <a href="/proveedores/proveedor/edit/{{ item.id }}" class="btn btn-info">MODIFICAR</a>
+                            <button onclick="eliminarProveedor({{ item.id }})" class="btn btn-danger">ELIMINAR</button>
+                        </td>
+                    </tr>
+
+
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+
+
+
+<script>
+    async function eliminarProveedor(id) {
+        const confirmacion = confirm("¿Seguro que deseas eliminar este proveedor?");
+        if (!confirmacion) return;
+
+        try {
+            const response = await fetch(`/proveedores/proveedor/eliminar/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                // Eliminar la fila de la tabla sin recargar la página
+                document.getElementById(`proveedor-${id}`).remove();
+            } else {
+                alert("Error al eliminar el proveedor");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Error al conectar con el servidor");
+        }
+    }
+</script>
+
+
+
+
 
 <!-- Enlaces a estilos de Bootstrap y Font Awesome -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">

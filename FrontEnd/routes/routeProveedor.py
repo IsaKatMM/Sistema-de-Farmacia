@@ -120,3 +120,17 @@ def view_order_proveedor(attributo, tipo):
         else:
             return render_template('proveedor/lista.html', lista = [], message = "No existe el elemento")
 
+
+###DELETE
+@routeProveedor.route('/proveedor/eliminar/<int:id>', methods=["DELETE"])
+def delete_supplier(id):
+    try:
+        r = requests.delete(f"http://localhost:8099/myapp/provetor/delete/{id}")
+        if r.status_code == 200:
+            return {"message": "Proveedor eliminado", "id": id}, 200
+        else:
+            return {"error": "No se pudo eliminar el proveedor"}, 400
+    except Exception as e:
+        return {"error": str(e)}, 500
+
+

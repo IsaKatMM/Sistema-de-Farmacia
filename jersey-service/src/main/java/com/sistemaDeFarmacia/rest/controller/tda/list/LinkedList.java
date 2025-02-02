@@ -80,7 +80,6 @@ public class LinkedList<E> {
         return this.getNode(0).getInfo();
     }
 
-
     private E getLast() throws IndexOutOfBoundsException, ListEmptyException {
         return this.getNode(this.size - 1).getInfo();
     }
@@ -558,5 +557,28 @@ public class LinkedList<E> {
         }
         return this;
     }
+
+    public boolean remove(E element) {
+        if (isEmpty()) return false;
+        
+        if (header.getInfo().equals(element)) {
+            header = header.getNext();
+            size--;
+            return true;
+        }
+        
+        Node<E> current = header;
+        while (current.getNext() != null) {
+            if (current.getNext().getInfo().equals(element)) {
+                current.setNext(current.getNext().getNext());
+                size--;
+                return true;
+            }
+            current = current.getNext();
+        }
+        
+        return false; 
+    }
+        
 
 }
