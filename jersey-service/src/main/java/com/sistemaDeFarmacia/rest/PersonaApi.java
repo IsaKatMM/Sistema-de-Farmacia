@@ -1,4 +1,5 @@
 package com.sistemaDeFarmacia.rest;
+
 import java.util.HashMap;
 
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.sistemaDeFarmacia.rest.controller.dao.services.PersonaServices;
+import com.sistemaDeFarmacia.rest.models.Persona;
 
 @Path("person")
 public class PersonaApi {
@@ -29,25 +31,25 @@ public class PersonaApi {
         PersonaServices ps = new PersonaServices();
         map.put("msg", "Ok");
         map.put("data", ps.listAll().toArray());
-        if (ps.listAll().isEmpty()){
-            map.put("data", new Object[]{});
+        if (ps.listAll().isEmpty()) {
+            map.put("data", new Object[] {});
         }
         return Response.ok(map).build();
     }
-    
 
     //
     @Path("/listType")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getType(){
+    public Response getType() {
         HashMap map = new HashMap<>();
         PersonaServices ps = new PersonaServices();
         map.put("msg", "Ok");
-        //map.put("data", ps.getTipos());
+        // map.put("data", ps.getTipos());
         return Response.ok(map).build();
     }
-    @Path("/get/{id}")//actualizar
+
+    @Path("/get/{id}") // actualizar
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getPerson(@PathParam("id") Integer id) {
@@ -67,39 +69,67 @@ public class PersonaApi {
 
         return Response.ok(map).build();
     }
+
     //
-    @Path ("/save")
+    @Path("/save")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response save(HashMap map){
+    public Response save(HashMap<String, Object> map) {
         HashMap res = new HashMap<>();
-        Gson g = new Gson();
-        String a = g.toJson(map);
-        System.out.println("****"+a);
+        Gson gson = new Gson();
+        String jsonData = gson.toJson(map);
+        System.out.println("****" + jsonData);
 
-        try{
-         //TODO
-        //VALIDATION (poner en la practica y trabajo final)-- como que la cedula no se repita y asi
-        //para acceder a los datos del HashMap es map.get --BAD REQUEST
-        PersonaServices ps= new PersonaServices();
-        ps.getPersona().setNombre(map.get("nombres").toString());
-        ps.getPersona().setApellido(map.get("apellidos").toString());
-        ps.getPersona().setTelefono(map.get("telefono").toString());
-        ps.getPersona().setCedula(map.get("cedula").toString());
-        ps.getPersona().setDireccion(map.get("direccion").toString());
-        ps.getPersona().setCorreo(map.get("correo").toString());
-        ps.save();
-                res.put("msg","OK");
-                res.put("data","Persona registrada correctamente");
-                return Response.ok(res).build();
- 
-        } catch (Exception e){
-            System.out.println("Error en sav en data"+e.toString());
-            res.put("msg","Error");
-            res.put("data", e.toString());
+        try {
+            PersonaServices ps = new PersonaServices();
+            String cedula = (String) map.get("cedula");
+            String telefono = (String) map.get("telefono");
+            String correo = (String) map.get("correo");
+
+            // Validación para verificar que la cédula no se repita
+            if (ps.isCedulaDuplicada(cedula)) {
+                res.put("msg", "Error");
+                res.put("data", "La cédula ya está registrada.");
+                return Response.status(Status.BAD_REQUEST).entity(res).build();
+            }
+
+            // Validación para el teléfono
+            if (telefono.isEmpty() || !telefono.matches("\\d{10}")) {
+                res.put("msg", "Error");
+                res.put("data", "El teléfono es obligatorio y debe tener 10 dígitos.");
+                return Response.status(Status.BAD_REQUEST).entity(res).build();
+            }
+
+            // Validación para el correo
+            if (correo.isEmpty() || !correo.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                res.put("msg", "Error");
+                res.put("data", "El correo es obligatorio y debe tener un formato válido.");
+                return Response.status(Status.BAD_REQUEST).entity(res).build();
+            }
+
+            // Crear y asignar valores al objeto Persona
+            Persona persona = new Persona();
+            persona.setNombre((String) map.get("nombre"));
+            persona.setApellido((String) map.get("apellido"));
+            persona.setTelefono(telefono);
+            persona.setCedula(cedula);
+            persona.setDireccion((String) map.get("direccion"));
+            persona.setCorreo(correo);
+
+            // Asignar el objeto Persona al servicio y guardar
+            ps.setPersona(persona);
+            ps.save();
+
+            res.put("msg", "OK");
+            res.put("data", "Persona registrada correctamente");
+            return Response.ok(res).build();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            res.put("msg", "Error");
+            res.put("data", "Error en save: " + e.toString());
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity(res).build();
-            //TODO
         }
     }
 
