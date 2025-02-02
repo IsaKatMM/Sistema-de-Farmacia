@@ -23,6 +23,10 @@ public class Persona {
 
     
     }
+
+    public Persona (Integer id){
+        this.id = id;
+    }
     public Integer getId() {
         return this.id;
     }
