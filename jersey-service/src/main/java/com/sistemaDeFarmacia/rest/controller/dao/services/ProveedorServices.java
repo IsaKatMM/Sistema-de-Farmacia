@@ -101,5 +101,11 @@ public class ProveedorServices {
     public Persona buscar_cedula(String texto){
         return obj.buscar_cedula(texto);
     }
+
+    // Método para eliminar un proveedor
+    public Boolean delete(Integer id) throws Exception {
+        return obj.delete(id);
+    }
+
 }
 

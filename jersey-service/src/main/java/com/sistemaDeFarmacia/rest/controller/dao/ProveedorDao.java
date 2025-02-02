@@ -27,11 +27,11 @@ public class ProveedorDao extends AdapterDao<Proveedor> {
         this.proveedor = proveedor;
     }
 
-    public LinkedList getListAll() {
-        if (listAll == null) {
+    public LinkedList<Proveedor> getListAll() {
+        if (this.listAll == null) {
             this.listAll = listAll();
         }
-        return listAll;
+        return this.listAll;
     }
 
     public Boolean save() throws Exception {
@@ -58,53 +58,17 @@ public class ProveedorDao extends AdapterDao<Proveedor> {
         return TipoProducto.values();
     }
 
-    // Método delete utilizando la lógica del AdapterDao
-    /*
-     * public Boolean delete(Integer positionType) throws Exception {
-     * super.delete(positionType); // Llama al método delete del AdapterDao
-     * this.listAll = listAll(); // Actualiza la lista después de la eliminación
-     * return true;
-     * }
-     */
-
-    /*public Boolean delete(Integer id) throws Exception {
-        System.out.println("Intentando eliminar el proveedor con ID: " + id);
-
-        // Obtener el proveedor por ID
-        Proveedor proveedor = get(id);
-        if (proveedor == null) {
-            System.out.println("Proveedor no encontrado");
-            throw new Exception("Proveedor no encontrado");
+    // Método delete 
+    public Boolean delete(Integer id) throws Exception {
+        for (int i = 0; i < getListAll().getSize(); i++) {
+            Proveedor pro = getListAll().get(i);
+            if (pro.getId().equals(id)) {
+                getListAll().delete(i);
+                return true;
+            }
         }
-
-        System.out.println("Proveedor encontrado: " + proveedor.getId());
-
-        // Obtener la lista de proveedores
-        LinkedList<Proveedor> list = listAll();
-
-        // Buscar el índice del proveedor en la lista
-        int index = list.indexOf(proveedor);
-        if (index == -1) {
-            System.out.println("Proveedor no encontrado en la lista");
-            throw new Exception("Proveedor no encontrado en la lista");
-        }
-
-        System.out.println("Proveedor encontrado en la lista en la posición: " + index);
-
-        // Eliminar el proveedor utilizando AdapterDao
-        try {
-            System.out.println("Eliminando el proveedor con ID: " + proveedor.getId());
-            super.delete(index + 1); // Ajuste de índice porque la posición en AdapterDao comienza desde 1
-
-            // Actualizar la lista de proveedores
-            this.listAll = listAll();
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error al eliminar el proveedor: " + e.getMessage());
-            throw new Exception("Error al eliminar el proveedor: " + e.getMessage());
-        }
-    }*/
-
+        throw new Exception("Proveedor no encontrado con ID: " + id);
+    }
     ///////////////////////////////////////////////////////////////////////////////////////
     public LinkedList<Proveedor> order(Integer type_order, String atributo) {
         LinkedList<Proveedor> listita = listAll();

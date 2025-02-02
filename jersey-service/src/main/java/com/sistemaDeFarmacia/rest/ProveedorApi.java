@@ -305,32 +305,25 @@ public class ProveedorApi {
 
     // eliminar
    
-    /*@DELETE
-    @Path("/delete/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/eliminar/{id}")
+    @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteProveedor(@PathParam("id") Integer id) {
+    public Response delete(@PathParam("id") Integer id) {
+        HashMap<String, Object> res = new HashMap<>();
         try {
-            // Llamar al método delete del ProveedorDao
-            boolean result = proveedorDao.delete(id);
-
-            // Verificar si la eliminación fue exitosa
-            if (result) {
-                return Response.status(Response.Status.OK) // HTTP 200
-                        .entity("{\"message\": \"Proveedor eliminado exitosamente\"}")
-                        .build();
-            } else {
-                return Response.status(Response.Status.BAD_REQUEST) // HTTP 400
-                        .entity("{\"message\": \"No se pudo eliminar el proveedor\"}")
-                        .build();
-            }
+            ProveedorServices ps = new ProveedorServices();
+            ps.setProveedor(ps.get(id));
+            ps.delete(id);
+            res.put("msg", "Ok");
+            res.put("data", "Eliminado exitoso");
+            return Response.ok(res).build();
         } catch (Exception e) {
-            // Si ocurre un error, devolver un mensaje de error
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR) // HTTP 500
-                    .entity("{\"message\": \"Error al eliminar el proveedor: " + e.getMessage() + "\"}")
-                    .build();
+            res.put("msg", "Error");
+            res.put("data", e.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST).entity(res).build();
         }
-    }*/
+    }
+
 
     /// search
     @Path("/list/search/{texto}")

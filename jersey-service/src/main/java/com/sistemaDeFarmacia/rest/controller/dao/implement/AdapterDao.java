@@ -94,7 +94,7 @@ public class AdapterDao<T> implements InterfazDao<T> {
     }
     
     //eliminar por posición
-    public void delete(Integer positionType) throws Exception {
+    /*public Boolean delete(Integer positionType) throws Exception {
         LinkedList<T> list = listAll();
         
         // Verificar si la lista está vacía
@@ -120,7 +120,7 @@ public class AdapterDao<T> implements InterfazDao<T> {
         // Guardar la lista actualizada en el archivo
         String info = g.toJson(list.toArray());
         saveFile(info);
-    }
+    }*/
     
     // modificacion del get para la busqueda lineal
 
