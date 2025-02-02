@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+
+{% block title %}Lista de Compras{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Lista de Compras</h2>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID Proveedor</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for compra in lista %}
+            <tr>
+                <td>{{ compra.id }}</td>
+                <td>{{ compra.id_proveedor }}</td>
+                <td>{{ compra.producto }}</td>
+                <td>{{ compra.cantidad }}</td>
+                <td>{{ compra.totalCompra }}</td>
+                <td>{{ compra.fechaCompra }}</td>
+                <td>
+                    <a href="{{ url_for('routeCompra.update_compra', compra_id=compra.id) }}" class="btn btn-warning btn-sm">Actualizar</a>
+                    <form action="{{ url_for('routeCompra.delete_compra', id=compra.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta compra?');">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('routeCompra.save_compra') }}" class="btn btn-success">Agregar Nueva Compra</a>
+    <a href="{{ url_for('router.home') }}" class="btn btn-primary">Home</a>
+</div>
+{% endblock %}

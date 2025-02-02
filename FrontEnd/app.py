@@ -10,10 +10,10 @@ def create_app():
         from routes.routeProveedor import routeProveedor
         from routes.routeCompra import routeCompra
         app.register_blueprint(router)
-        app.register_blueprint(routeProducto)
-        app.register_blueprint(routeVenta)
-        app.register_blueprint(routeProveedor)
-        app.register_blueprint(routeCompra)
+        app.register_blueprint(routeProducto, url_prefix='/producto')
+        app.register_blueprint(routeVenta, url_prefix='/venta')
+        app.register_blueprint(routeProveedor, url_prefix='/proveedor')
+        app.register_blueprint(routeCompra, url_prefix='/compra')
 
 
     return app

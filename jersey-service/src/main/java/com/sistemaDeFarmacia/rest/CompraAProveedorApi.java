@@ -74,7 +74,7 @@ public class CompraAProveedorApi {
             String fechaActual = LocalDate.now().format(formatter);
             fs.getCompraAProveedor().setFechaCompra(fechaActual);
             fs.getCompraAProveedor().setProducto((map.get("producto").toString()));
-            fs.getCompraAProveedor().setCantidad(Integer.parseInt(map.get("observaciones").toString()));
+            fs.getCompraAProveedor().setCantidad(Integer.parseInt(map.get("cantidad").toString()));
             fs.getCompraAProveedor().setTotalCompra(Float.parseFloat(map.get("totalCompra").toString()));
             fs.getCompraAProveedor().setId_proveedor(Integer.parseInt(map.get("id_proveedor").toString()));
             

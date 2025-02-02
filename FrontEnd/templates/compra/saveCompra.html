@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+
+{% block title %}Guardar Compra{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Guardar Compra</h2>
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('routeCompra.save_compra') }}">
+        <div class="mb-3">
+            <label for="producto" class="form-label">Producto</label>
+            <input type="text" class="form-control" id="producto" name="producto" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="cantidad" class="form-label">Cantidad</label>
+            <input type="number" class="form-control" id="cantidad" name="cantidad" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="totalCompra" class="form-label">Total de Compra</label>
+            <input type="number" step="0.01" class="form-control" id="totalCompra" name="totalCompra" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_proveedor" class="form-label">Proveedor</label>
+            <select class="form-control" id="id_proveedor" name="id_proveedor" required>
+                {% for proveedor in lista %}
+                    <option value="{{ proveedor.id }}">{{ proveedor.nombreEmpresa }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+
+    <a href="{{ url_for('routeCompra.compra_list') }}" class="btn btn-secondary mt-3">Ver Compras</a>
+</div>
+{% endblock %}

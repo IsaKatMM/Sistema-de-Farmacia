@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+
+{% block title %}Actualizar Compra{% endblock %}
+
+{% block content %}
+    <h2>Actualizar Compra</h2>
+
+    <form method="POST">
+        
+        <div class="mb-3">
+            <label for="producto" class="form-label">Producto</label>
+            <input type="text" class="form-control" id="producto" name="producto" value="{{ compra.producto }}" required>
+        </div>
+
+    
+        <div class="mb-3">
+            <label for="cantidad" class="form-label">Cantidad</label>
+            <input type="number" class="form-control" id="cantidad" name="cantidad" value="{{ compra.cantidad }}" required>
+        </div>
+
+        
+        <div class="mb-3">
+            <label for="totalCompra" class="form-label">Total Compra</label>
+            <input type="number" class="form-control" id="totalCompra" name="totalCompra" value="{{ compra.totalCompra }}" required>
+        </div>
+
+    
+        <div class="mb-3">
+            <label for="id_proveedor" class="form-label">Proveedor</label>
+            <select class="form-control" id="id_proveedor" name="id_proveedor" required>
+                {% for proveedor in lista %}
+                    <option value="{{ proveedor.id }}" {% if proveedor.id == compra.id_proveedor %}selected{% endif %}>
+                        {{ proveedor.nombreEmpresa }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+    </form>
+    
+    <a href="{{ url_for('routeCompra.compra_list') }}" class="btn btn-secondary mt-3">Volver a la lista</a>
+{% endblock %}
