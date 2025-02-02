@@ -1,0 +1,95 @@
+/* Estilos generales */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #6B73FF 0%, #000DFF 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor del formulario */
+.card {
+    width: 380px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+/* Logo */
+.logo-img img {
+    max-width: 100px;
+    margin-bottom: 10px;
+}
+
+/* Títulos */
+.text-center {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Inputs */
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: #6B73FF;
+    box-shadow: 0px 0px 8px rgba(107, 115, 255, 0.5);
+}
+
+/* Botón de inicio de sesión */
+.btn-primary {
+    background: #6B73FF;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: #000DFF;
+    transform: scale(1.05);
+}
+
+/* Enlaces */
+.text-primary {
+    color: #6B73FF !important;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.text-primary:hover {
+    text-decoration: underline;
+}
+
+/* Checkbox personalizado */
+.form-check-input {
+    border-radius: 4px;
+    border: 2px solid #6B73FF;
+}
+
+.form-check-input:checked {
+    background-color: #6B73FF;
+    border-color: #000DFF;
+}
+
+/* Diseño del texto de "Crear cuenta" */
+.signup-text {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
